@@ -99,7 +99,7 @@ isSupported().then(yes => { if (yes) getAnalytics(app); }).catch(() => {});
 const db = getFirestore(app);
 
 (()=>{
-const SH=[["S","Sáng","07:00–12:00"],["C","Chiều","12:00–17:00"],["T","Tối","17:00–22:00"]];
+const SH=[["C","Chiều","14:00–16:00"],["T1","Ca 1 tối","18:00–20:00"],["T2","Ca 2 tối","20:00–22:00"]];
 const DN=["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"];
 const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,"0");
 const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
