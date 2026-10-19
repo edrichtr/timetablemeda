@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mê Đá · Lịch làm theo tuần</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ecdcb6;--paper:#f8eed3;--ink:#3b2a20;--muted:#7b6652;--red:#b5482a;--gold:#d9a441;--green:#2f5d50;--on:#fbf1d9;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241a14;--paper:#33261d;--ink:#f1e2bf;--muted:#b9a283;--red:#c9573a;--gold:#e0b050;--green:#4f8a76;--on:#fff3d9;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#241a14;--paper:#33261d;--ink:#f1e2bf;--muted:#b9a283;--red:#c9573a;--gold:#e0b050;--green:#4f8a76;--on:#fff3d9;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Be Vietnam Pro",Georgia,serif;background-image:radial-gradient(color-mix(in srgb,var(--ink) 14%,transparent) 1px,transparent 1.6px);background-size:16px 16px}
+.wrap{max-width:900px;margin:0 auto;padding:16px 14px 40px}
+header{background:var(--paper);border:3px solid var(--ink);border-radius:8px;box-shadow:6px 6px 0 var(--ink);overflow:hidden;margin-bottom:22px}
+.awning{height:18px;background:repeating-linear-gradient(90deg,var(--red) 0 26px,var(--paper) 26px 52px);border-bottom:3px solid var(--ink)}
+.brand{display:flex;gap:16px;align-items:center;padding:16px 18px}
+.badge{flex:none;width:76px;height:76px;border-radius:50%;background:var(--red);color:var(--on);border:3px double var(--on);outline:3px solid var(--red);display:grid;place-items:center;text-align:center;font:900 22px/1 "Playfair Display",Georgia,serif;letter-spacing:1px}
+h1,h2,.big{font-family:"Playfair Display",Georgia,serif;margin:0}
+h1{font-weight:900;font-size:clamp(24px,6vw,34px);line-height:1.1}
+h2{font-size:20px;padding-bottom:8px;margin-bottom:12px;border-bottom:2px dotted var(--ink)}
+.muted{color:var(--muted)}.sm{font-size:13px}
+.card{background:var(--paper);border:2.5px solid var(--ink);border-radius:8px;box-shadow:5px 5px 0 var(--ink);padding:16px 18px;margin-bottom:22px}
+.row{display:flex;flex-wrap:wrap;gap:12px 36px;margin-bottom:12px}
+.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.big{font-size:22px;font-weight:700}
+.cd{display:flex;gap:10px;flex-wrap:wrap}
+.cb{min-width:64px;text-align:center;background:var(--ink);color:var(--paper);border-radius:6px;padding:8px 6px}
+.cb b{display:block;font:700 28px/1.1 "Courier New",monospace}.cb i{font-size:11px;font-style:normal;opacity:.8}
+#cdmsg{margin:10px 0 0}
+label{display:block;font-weight:700;font-size:13px;margin-bottom:4px}
+input{font:inherit;width:100%;padding:9px 12px;border:2px solid var(--ink);border-radius:6px;background:var(--bg);color:var(--ink)}
+.grid{display:grid;grid-template-columns:76px repeat(3,1fr);gap:6px;margin:14px 0;align-items:center}
+.gh{text-align:center;font-weight:700;font-size:13px}.grid small,.tbl small{display:block;font-weight:400;font-size:10.5px;color:var(--muted)}
+.dl{font-weight:700;font-size:13px}
+.chip{font:inherit;font-size:12.5px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 2px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--green);color:var(--on);font-weight:700;box-shadow:2px 2px 0 var(--ink)}
+.btn{font:inherit;font-weight:700;background:var(--red);color:var(--on);border:2px solid var(--ink);border-radius:6px;padding:10px 20px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}.btn.alt{background:var(--green)}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.tag{display:inline-block;background:var(--gold);color:#3b2a20;border:1.5px solid var(--ink);border-radius:4px;padding:1px 8px;margin:2px;font-size:13px;font-weight:500}
+.who{background:var(--bg);color:var(--ink)}
+.x{font:inherit;border:0;background:none;color:var(--red);cursor:pointer;margin-left:4px;padding:0}
+.scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;min-width:520px}
+.tbl th,.tbl td{border:2px solid var(--ink);padding:8px;text-align:center;vertical-align:middle}
+.tbl thead th{background:var(--green);color:var(--on)}.tbl thead small{color:var(--on);opacity:.8}
+.tbl th.rd{background:var(--bg);text-align:left;width:92px}
+.tbl td.q{font:900 28px/1 "Playfair Display",Georgia,serif;color:var(--red);background:repeating-linear-gradient(45deg,transparent 0 6px,color-mix(in srgb,var(--red) 12%,transparent) 6px 8px)}
+.tbl tr.none td.q{background:color-mix(in srgb,var(--red) 18%,var(--paper))}
+.arow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.note{background:var(--gold);color:#3b2a20;border:2px solid var(--ink);border-radius:6px;padding:8px 12px;margin-bottom:18px;font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);opacity:0;pointer-events:none;background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;transition:.25s;max-width:90vw;font-size:14px}
+#toast.show{transform:translate(-50%,0);opacity:1}#toast.bad{background:var(--red);color:var(--on)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.tab{font:inherit;font-weight:700;padding:9px 16px;border:2.5px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}.tab.on{background:var(--red);color:var(--on);box-shadow:3px 3px 0 var(--ink)}.pub{margin:12px 0;padding:10px 14px;border:2px dashed var(--ink);border-radius:6px;font-weight:700}.pub.on{background:color-mix(in srgb,var(--green) 25%,var(--paper));border-style:solid}.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}a.btn{display:inline-block;text-decoration:none}.whoami{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-bottom:14px;font-size:13px}.whoami b{background:var(--ink);color:var(--paper);border-radius:999px;padding:2px 12px}.whoami b.adm{background:var(--red);color:var(--on)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="awning"></div><div class="brand"><div class="badge">MÊ<br>ĐÁ</div><div><h1 id="ttl">Lịch làm theo tuần</h1><div class="muted" id="sub"></div></div></div></header>
+<div id="banner"></div>
+<p class="muted" id="load">Đang tải…</p>
+<nav class="tabs" id="tabs" hidden><button class="tab" id="tA" type="button">🛠 Quản trị</button><button class="tab" id="tE" type="button" hidden>👤 Xem như nhân viên</button><button class="tab" id="tO" type="button" hidden>Đăng xuất</button></nav>
+<section class="card" id="stCard" hidden><div class="row"><div><div class="lbl">Tuần làm việc</div><div class="big" id="wk">—</div></div><div><div class="lbl">Hạn chót đăng ký</div><div class="big" id="dl">—</div></div></div><div class="cd" id="cd"></div><p class="muted sm" id="cdmsg"></p></section>
+<section class="card" id="loginV" hidden><h2>🔑 Đăng nhập quản trị</h2><div class="arow"><div><label for="lu">Tài khoản</label><input id="lu" autocomplete="username"></div><div><label for="lp">Mật khẩu</label><input id="lp" type="password" autocomplete="current-password"></div></div><div class="act"><button class="btn" id="bLogin" type="button">Đăng nhập</button><button class="btn alt" id="bBack" type="button">← Quay lại</button></div></section>
+<div id="empV" hidden>
+<section class="card"><h2>① Đăng ký ca của bạn</h2><div id="form"></div></section>
+<section class="card"><h2>② Lịch làm chung</h2><div id="esched"></div></section>
+</div>
+<div id="admV" hidden>
+<section class="card"><h2>① Cài đặt tuần &amp; hạn chót</h2><div id="admin"></div></section>
+<section class="card"><h2 id="rT">② Danh sách đăng ký</h2><div id="roster"></div></section>
+<section class="card"><h2>③ Lịch tự động xếp &amp; công bố</h2><div id="asched"></div></section>
+<section class="card"><h2>④ Tài khoản quản trị</h2><div id="acct"></div></section>
+</div>
+<footer>★ Mê Đá · Lịch nhân viên ★</footer>
+</div>
+<div id="toast"></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAa70QjZEBbuZ9NfNr723DtlAfSVCxcLIg",
+  authDomain: "lichlammeda.firebaseapp.com",
+  projectId: "lichlammeda",
+  storageBucket: "lichlammeda.firebasestorage.app",
+  messagingSenderId: "768485590081",
+  appId: "1:768485590081:web:125b33884b703812a8b2c0",
+  measurementId: "G-KMPZ9HRH4V"
+};
+
+const app = initializeApp(firebaseConfig);
+isSupported().then(yes => { if (yes) getAnalytics(app); }).catch(() => {});
+const db = getFirestore(app);
+
+(()=>{
+const SH=[["S","Sáng","07:00–12:00"],["C","Chiều","12:00–17:00"],["T","Tối","17:00–22:00"]];
+const DN=["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"];
+const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const fromYmd=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const mondayOf=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-(x.getDay()+6)%7);return x};
+const fmt=d=>pad(d.getDate())+"/"+pad(d.getMonth()+1);
+const hm=t=>{const d=new Date(t);return pad(d.getHours())+":"+pad(d.getMinutes())+" ngày "+fmt(d)};
+const slug=s=>s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40);
+const toLocal=d=>ymd(d)+"T"+pad(d.getHours())+":"+pad(d.getMinutes());
+const h=(t,a,...k)=>{const e=document.createElement(t);for(const x in a||{}){const v=a[x];if(v==null||v===false)continue;if(x==="class")e.className=v;else if(x.slice(0,2)==="on")e[x]=v;else e.setAttribute(x,v===true?"":v)}k.flat().forEach(c=>{if(c!=null&&c!==false)e.append(c)});return e};
+const DEF={u:"admin",salt:"f0a6460aa70be2afb3b2dd7f",h:"4a8b877a890c6c3154cd6ba3edca6c1f68bb4f9753d15f3d89bf405824f86702"};
+let adminOn=false,fails=0,until=0,auth=DEF,cfg=null,regs=[],sched=null,isAdmin=false,draft={},nm="",draftWeek="",formKey="",lastLock=null,filled=false,tt;
+const LK="meda-reg";
+const getMine=()=>{try{const r=JSON.parse(localStorage.getItem(LK));return r&&cfg&&r.week===cfg.week?r:null}catch(e){return null}};
+const isLocked=()=>!!cfg&&Date.now()>=new Date(cfg.deadline).getTime();
+const wr=()=>cfg?regs.filter(r=>r.week===cfg.week):[];
+const rid=()=>cfg.week+"_"+slug(nm);
+const dayDt=d=>{const x=fromYmd(cfg.week);x.setDate(x.getDate()+d);return x};
+const clean=x=>({id:String(x.id||""),name:String(x.name||"").slice(0,30),week:String(x.week||""),slots:x.slots&&typeof x.slots==="object"?x.slots:{},ts:+x.ts||0});
+function toast(m,bad){const t=$("#toast");t.textContent=m;t.className="show"+(bad?" bad":"");clearTimeout(tt);tt=setTimeout(()=>t.className="",3000)}
+
+/* Xếp lịch tự động: ca ít người đăng ký xếp trước, ưu tiên người đang có ít ca nhất (công bằng) */
+function build(){
+  const per=cfg.per||2,rs=wr().sort((a,b)=>a.ts-b.ts||a.name.localeCompare(b.name)),cnt={};
+  rs.forEach(r=>cnt[r.id]=0);
+  const res=DN.map(()=>SH.map(()=>[])),all=[];
+  DN.forEach((_,d)=>SH.forEach(([s],i)=>all.push({d,i,c:rs.filter(r=>r.slots[d+s])})));
+  all.sort((a,b)=>a.c.length-b.c.length||a.d-b.d||a.i-b.i).forEach(x=>{
+    const p=x.c.slice().sort((a,b)=>cnt[a.id]-cnt[b.id]||a.ts-b.ts||a.name.localeCompare(b.name)).slice(0,per);
+    p.forEach(r=>cnt[r.id]++);res[x.d][x.i]=p;
+  });
+  return{res,cnt,rs};
+}
+const cellsOf=res=>{const c={};DN.forEach((_,d)=>SH.forEach((s,i)=>{if(res[d][i].length)c[d+s[0]]=res[d][i].map(r=>r.name)}));return c};
+const sameCells=(a,b)=>DN.every((_,d)=>SH.every(s=>JSON.stringify(a[d+s[0]]||[])===JSON.stringify(b[d+s[0]]||[])));
+const pubOn=()=>!!sched&&!!cfg&&sched.week===cfg.week&&!!sched.cells;
+
+/* Bảng lịch: get(d, mãCa) trả về mảng tên; ca trống hiện "?" */
+function tbl(get){
+  let miss=0;
+  const t=h("table",{class:"tbl"},
+    h("thead",{},h("tr",{},h("th",{},"Ngày"),SH.map(s=>h("th",{},s[1],h("small",{},s[2]))))),
+    h("tbody",{},DN.map((n,d)=>{
+      const row=SH.map(s=>get(d,s[0])),none=row.every(c=>!c.length);
+      return h("tr",{class:none?"none":""},h("th",{class:"rd"},n,h("small",{},fmt(dayDt(d)))),
+        row.map(c=>{if(!c.length){miss++;return h("td",{class:"q",title:"Chưa có ai đăng ký ca này"},"?")}
+          return h("td",{},c.map(x=>h("span",{class:"tag"},x)))}))})));
+  return{el:h("div",{class:"scroll"},t),miss};
+}
+const missNote=m=>h("p",{class:"sm muted"},m?"❓ Có "+m+" ca chưa ai đăng ký nên hiện dấu “?”.":"✅ Tất cả các ca đều đã có người.");
+
+function renderStatus(){
+  if(!cfg){$("#wk").textContent="Chưa mở";$("#dl").textContent="—";return}
+  const a=fromYmd(cfg.week),b=new Date(a);b.setDate(b.getDate()+6);
+  $("#wk").textContent=fmt(a)+" – "+fmt(b)+"/"+b.getFullYear();
+  const d=new Date(cfg.deadline);
+  $("#dl").textContent=DN[(d.getDay()+6)%7]+", "+pad(d.getHours())+":"+pad(d.getMinutes())+" ngày "+fmt(d);
+}
+
+/* ===== Nhân viên ===== */
+function paint(){document.querySelectorAll(".chip").forEach(c=>{const on=!!draft[c.dataset.k];c.setAttribute("aria-pressed",on);c.textContent=on?"✓ Đã chọn":"Chọn"})}
+function other(){nm="";draft={};try{localStorage.removeItem(LK)}catch(e){}formKey="";renderForm()}
+function renderForm(){
+  const box=$("#form"),lk=isLocked(),key=(cfg?cfg.week:"")+"|"+lk;
+  if(key===formKey)return;formKey=key;box.replaceChildren();
+  if(!cfg){box.append(h("p",{class:"muted"},"Quản lý chưa mở đăng ký. Bạn quay lại sau nhé!"));return}
+  if(draftWeek!==cfg.week){draft={};draftWeek=cfg.week;const m=getMine();if(m){nm=m.name;draft={...m.slots}}}
+  if(lk){box.append(h("p",{class:"muted"},"⏰ Đã hết hạn đăng ký. Quản lý sẽ công bố lịch chung ở mục ② khi sẵn sàng."));return}
+  const m=getMine(),inp=h("input",{id:"nm",placeholder:"Tên của bạn: ",maxlength:30,autocomplete:"off"});
+  inp.value=nm;inp.oninput=()=>{nm=inp.value};
+  const grid=h("div",{class:"grid"},h("div"),SH.map(s=>h("div",{class:"gh"},s[1],h("small",{},s[2]))));
+  DN.forEach((n,d)=>grid.append(h("div",{class:"dl"},n,h("small",{},fmt(dayDt(d)))),...SH.map(s=>h("button",{class:"chip",type:"button","data-k":d+s[0],onclick:()=>{draft[d+s[0]]=!draft[d+s[0]];paint()}}))));
+  box.append(h("label",{for:"nm"},"Tên nhân viên"),inp,grid,
+    m&&h("p",{class:"sm",style:"font-weight:700"},"✓ Đã gửi lúc "+hm(m.at)+". Bạn có thể sửa và gửi lại đến hết hạn chót."),
+    h("div",{class:"act"},h("button",{class:"btn",type:"button",onclick:submit},m?"Cập nhật đăng ký":"Gửi đăng ký"),m&&h("button",{class:"btn alt",type:"button",onclick:other},"Đăng ký cho người khác")));
+  paint();
+}
+async function submit(){
+  const n=nm.trim();
+  if(!n||!slug(n))return toast("Hãy nhập tên của bạn trước nhé!",1);
+  if(isLocked())return toast("Đã hết hạn đăng ký",1);
+  const slots={};for(const k in draft)if(draft[k])slots[k]=true;
+  if(!Object.keys(slots).length)return toast("Bạn chưa chọn ca nào",1);
+  nm=n;const m=getMine(),rec={id:rid(),name:n,week:cfg.week,slots,ts:m&&m.name===n?m.ts:Date.now()};
+  try{
+    await api.saveReg(rec);await refresh();
+    try{localStorage.setItem(LK,JSON.stringify({...rec,at:Date.now()}))}catch(e){}
+    formKey="";renderForm();if(isAdmin){renderRoster();renderASched()}toast("Đã lưu lịch của "+n+" ✓");
+  }catch(e){toast("Chưa lưu được: "+(e.message||e.code||"lỗi"),1)}
+}
+function renderESched(){
+  const b=$("#esched");b.replaceChildren();
+  if(!cfg){b.append(h("p",{class:"muted"},"Chưa có tuần nào được mở."));return}
+  if(!pubOn()){b.append(h("p",{class:"muted"},"🔒 Lịch chung chưa được quản lý công bố. Bạn quay lại xem sau nhé!"));return}
+  const{el,miss}=tbl((d,s)=>Array.isArray(sched.cells[d+s])?sched.cells[d+s].map(String):[]);
+  b.append(el,missNote(miss),h("p",{class:"sm muted"},"Quản lý công bố lúc "+hm(sched.at)));
+}
+
+/* ===== Quản trị ===== */
+function renderRoster(){
+  const b=$("#roster"),rs=wr().sort((a,b)=>a.ts-b.ts);b.replaceChildren();
+  $("#rT").textContent="② Danh sách đăng ký"+(cfg?" ("+rs.length+" người)":"");
+  if(!rs.length){b.append(h("p",{class:"muted"},cfg?"Chưa có ai đăng ký.":"—"));return}
+  rs.forEach(r=>b.append(h("span",{class:"tag who"},r.name+" · "+Object.keys(r.slots).length+" ca",h("button",{class:"x",title:"Xóa đăng ký",onclick:()=>delReg(r.id)},"✕"))));
+}
+async function delReg(id){
+  try{await api.deleteReg(id);await refresh()}catch(e){toast("Không xóa được",1)}
+}
+function renderASched(){
+  const b=$("#asched"),lk=isLocked();b.replaceChildren();
+  if(!cfg){b.append(h("p",{class:"muted"},"Hãy lưu cài đặt tuần ở mục ① trước."));return}
+  const{res,cnt,rs}=build(),{el,miss}=tbl((d,s)=>res[d][SH.findIndex(x=>x[0]===s)].map(r=>r.name)),pub=pubOn(),same=pub&&sameCells(cellsOf(res),sched.cells);
+  b.append(h("p",{class:"sm"},lk?"✅ Đã hết hạn: hệ thống đã tự động xếp lịch bên dưới.":"⏳ Chưa hết hạn: đây là bản xem thử. Nút công bố sẽ mở sau hạn chót."),
+    el,missNote(miss),h("div",{},rs.map(r=>h("span",{class:"tag who"},r.name+": "+cnt[r.id]+" ca"))),
+    h("div",{class:"pub"+(pub?" on":"")},pub?"👁 Nhân viên ĐANG xem được lịch"+(same?".":". Lưu ý: bản đã công bố khác bản tự xếp hiện tại, bấm Công bố lại để cập nhật."):"🙈 Lịch đang ẨN với nhân viên."),
+    h("div",{class:"act"},h("button",{class:"btn",type:"button",disabled:!lk,onclick:publish},pub?"Công bố lại":"✅ Công bố cho nhân viên"),pub&&h("button",{class:"btn alt",type:"button",onclick:unpublish},"🙈 Ẩn lịch")));
+}
+async function publish(){
+  if(!isLocked())return toast("Chỉ công bố được sau hạn chót",1);
+  const doc={week:cfg.week,cells:cellsOf(build().res),at:Date.now()};
+  try{await api.setSchedule(doc);sched=doc;renderASched();renderESched();toast("Đã công bố lịch cho nhân viên ✓")}catch(e){toast("Chưa công bố được: "+(e.message||e.code||"lỗi"),1)}
+}
+async function unpublish(){
+  try{await api.clearSchedule();sched=null;renderASched();renderESched();toast("Đã ẩn lịch")}catch(e){toast("Chưa ẩn được: "+(e.message||e.code||"lỗi"),1)}
+}
+function defCfg(){const m=mondayOf(new Date());m.setDate(m.getDate()+7);const d=new Date(m);d.setDate(d.getDate()-1);d.setHours(18,0,0,0);return{week:ymd(m),deadline:d.toISOString(),per:2}}
+function fillAdmin(){const c=cfg||defCfg();$("#aw").value=c.week;$("#ad").value=toLocal(new Date(c.deadline));$("#ap").value=c.per||2}
+async function saveCfg(){
+  const w=$("#aw").value,d=$("#ad").value;
+  if(!w||!d)return toast("Hãy chọn đủ tuần và hạn chót",1);
+  const c={week:ymd(mondayOf(fromYmd(w))),deadline:new Date(d).toISOString(),per:Math.min(10,Math.max(1,+$("#ap").value||2))};
+  try{await api.setConfig(c);cfg=c;lastLock=null;tick();toast("Đã lưu cài đặt ✓")}catch(e){toast("Chưa lưu được: "+(e.message||e.code||"lỗi"),1)}
+}
+function buildAdmin(){
+  $("#admin").append(
+    h("div",{class:"arow"},
+      h("div",{},h("label",{for:"aw"},"Tuần bắt đầu (chọn ngày bất kỳ, tự về Thứ 2)"),h("input",{type:"date",id:"aw"})),
+      h("div",{},h("label",{for:"ad"},"Hạn chót đăng ký"),h("input",{type:"datetime-local",id:"ad"})),
+      h("div",{},h("label",{for:"ap"},"Số người mỗi ca"),h("input",{type:"number",id:"ap",min:1,max:10}))),
+    h("div",{class:"act"},h("button",{class:"btn",type:"button",onclick:saveCfg},"Lưu cài đặt")),
+    h("p",{class:"sm muted"},"Sang tuần mới: chọn ngày của tuần đó rồi lưu. Lịch của tuần cũ sẽ tự ẩn với nhân viên."));
+  fillAdmin();
+}
+
+/* ===== LỚP LƯU TRỮ FIREBASE CLOUD FIRESTORE (api) ===== */
+const api=(()=>{
+  const stateDoc=k=>doc(db,"meda",k);
+  const regDoc=id=>doc(db,"meda_regs",String(id));
+  const getState=async k=>{const s=await getDoc(stateDoc(k));return s.exists()?s.data():null};
+  return{
+    local:false,
+    getConfig:()=>getState("config"),
+    setConfig:c=>setDoc(stateDoc("config"),c),
+    listRegs:async()=>{const s=await getDocs(collection(db,"meda_regs"));return s.docs.map(d=>d.data())},
+    saveReg:r=>setDoc(regDoc(r.id),r),
+    deleteReg:id=>deleteDoc(regDoc(id)),
+    getSchedule:()=>getState("schedule"),
+    setSchedule:d=>setDoc(stateDoc("schedule"),d),
+    clearSchedule:()=>deleteDoc(stateDoc("schedule")),
+    getAuth:()=>getState("auth"),
+    setAuth:a=>setDoc(stateDoc("auth"),a)
+  };
+})();
+function showDbErr(e){
+  const b=$("#banner");b.replaceChildren();
+  if(!e)return;
+  const msg=e.code==="permission-denied"
+    ?"⚠️ Firebase Firestore đang chặn quyền đọc/ghi (permission-denied). Hãy vào Firebase Console → Firestore Database → Rules và mở quyền allow read, write: if true;"
+    :"⚠️ Chưa kết nối được Firestore ("+(e.code||e.message||"lỗi")+"). Hãy kiểm tra đã bật Firestore Database trên Firebase Console chưa.";
+  b.append(h("div",{class:"note"},msg));
+}
+async function refresh(){
+  try{
+    const[c,sc,au]=await Promise.all([api.getConfig(),api.getSchedule(),api.getAuth()]);
+    cfg=c&&c.week&&!isNaN(new Date(c.deadline))?c:null;sched=sc;auth=au&&au.u&&au.salt&&au.h?au:DEF;
+    if(isAdmin){regs=((await api.listRegs())||[]).map(clean);if(cfg&&!filled){filled=true;fillAdmin()}}
+    showDbErr(null);
+  }catch(e){showDbErr(e);toast("Không tải được dữ liệu Firebase",1)}
+  lastLock=null;tick();
+}
+function renderAll(){renderStatus();renderForm();renderESched();if(isAdmin){renderRoster();renderASched()}}
+const hex=a=>[...new Uint8Array(a)].map(x=>x.toString(16).padStart(2,"0")).join("");
+const hashPw=async(u,p,salt)=>hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(salt+":"+u+":"+p)));
+let unsubRegs=null;
+function watchRegs(){
+  if(unsubRegs)return;
+  unsubRegs=onSnapshot(collection(db,"meda_regs"),snap=>{
+    regs=snap.docs.map(d=>clean(d.data()));
+    if(isAdmin){renderRoster();renderASched()}
+  },e=>showDbErr(e));
+}
+function startAdmin(){
+  watchRegs();
+  if(adminOn){refresh();return}
+  adminOn=true;buildAdmin();
+  $("#acct").append(
+    h("div",{class:"arow"},
+      h("div",{},h("label",{for:"nu"},"Tài khoản mới"),h("input",{id:"nu",autocomplete:"off"})),
+      h("div",{},h("label",{for:"np"},"Mật khẩu mới (từ 8 ký tự)"),h("input",{id:"np",type:"password",autocomplete:"new-password"}))),
+    h("div",{class:"act"},h("button",{class:"btn",type:"button",onclick:changePw},"Đổi tài khoản / mật khẩu")));
+  refresh();
+}
+async function changePw(){
+  const u=$("#nu").value.trim().toLowerCase(),p=$("#np").value;
+  if(!u||p.length<8)return toast("Cần tài khoản và mật khẩu từ 8 ký tự",1);
+  const salt=hex(crypto.getRandomValues(new Uint8Array(12)));
+  try{const d={u,salt,h:await hashPw(u,p,salt)};await api.setAuth(d);auth=d;$("#np").value="";toast("Đã đổi tài khoản & mật khẩu ✓")}catch(e){toast("Chưa đổi được: "+(e.message||e.code||"lỗi"),1)}
+}
+async function login(){
+  if(Date.now()<until)return toast("Thử sai nhiều lần, hãy đợi "+Math.ceil((until-Date.now())/1e3)+" giây",1);
+  const u=$("#lu").value.trim().toLowerCase(),p=$("#lp").value;
+  if(!u||!p)return toast("Hãy nhập tài khoản và mật khẩu",1);
+  try{
+    if(u===auth.u&&(await hashPw(u,p,auth.salt)===auth.h||(auth===DEF&&p==="12345678"))){
+      fails=0;isAdmin=true;try{sessionStorage.setItem("meda-adm","1")}catch(e){}
+      $("#lp").value="";startAdmin();setTab("A");renderAll();tick();toast("Đăng nhập thành công ✓");
+    }else{if(++fails>=5){until=Date.now()+30000;fails=0}toast("Sai tài khoản hoặc mật khẩu",1)}
+  }catch(e){toast("Trình duyệt này không hỗ trợ đăng nhập",1)}
+}
+function logout(){isAdmin=false;try{sessionStorage.removeItem("meda-adm")}catch(e){}setTab("E")}
+function setTab(t){
+  const a=t==="A",ad=a&&isAdmin,lg=a&&!isAdmin;
+  $("#load").hidden=true;$("#tabs").hidden=false;$("#stCard").hidden=lg;
+  $("#admV").hidden=!ad;$("#loginV").hidden=!lg;$("#empV").hidden=a;
+  $("#tE").hidden=!isAdmin;$("#tO").hidden=!isAdmin;
+  $("#tA").classList.toggle("on",a);$("#tE").classList.toggle("on",!a);
+  $("#ttl").textContent=ad?"Quản trị lịch":lg?"Đăng nhập quản trị":"Lịch làm theo tuần";
+  $("#sub").textContent=ad?"Đặt hạn chót, xem lịch tự xếp và công bố cho nhân viên.":lg?"Chỉ dành cho quản lý Mê Đá.":"Chọn ca của bạn trước hạn chót.";
+  if(lg)$("#lu").focus();
+}
+function tick(){
+  const lk=isLocked();if(lk!==lastLock){lastLock=lk;renderAll()}
+  if(!cfg){$("#cdmsg").textContent="";return}
+  const ms=Math.max(0,new Date(cfg.deadline)-Date.now()),v={d:Math.floor(ms/864e5),h:Math.floor(ms/36e5)%24,m:Math.floor(ms/6e4)%60,s:Math.floor(ms/1e3)%60};
+  for(const k in v)$("#cd_"+k).textContent=pad(v[k]);
+  $("#cdmsg").textContent=lk?"Đã hết hạn: không nhận thêm đăng ký.":"Thời gian còn lại để đăng ký ca.";
+}
+
+$("#cd").append(...[["d","ngày"],["h","giờ"],["m","phút"],["s","giây"]].map(([k,l])=>h("div",{class:"cb"},h("b",{id:"cd_"+k},"00"),h("i",{},l))));
+$("#tA").onclick=()=>setTab("A");$("#tE").onclick=()=>setTab("E");$("#tO").onclick=logout;$("#bLogin").onclick=login;$("#bBack").onclick=()=>setTab("E");$("#lp").onkeydown=e=>{if(e.key==="Enter")login()};
+setInterval(tick,1000);
+(async()=>{
+  try{isAdmin=sessionStorage.getItem("meda-adm")==="1"}catch(e){isAdmin=false}
+  if(isAdmin)startAdmin();
+  await refresh();
+  setTab(isAdmin?"A":"E");
+  onSnapshot(collection(db,"meda"),snap=>{
+    const m={};snap.docs.forEach(d=>{m[d.id]=d.data()});
+    const c=m.config,sc=m.schedule||null,au=m.auth;
+    cfg=c&&c.week&&!isNaN(new Date(c.deadline))?c:null;
+    sched=sc;
+    auth=au&&au.u&&au.salt&&au.h?au:DEF;
+    if(isAdmin&&cfg&&!filled){filled=true;fillAdmin()}
+    showDbErr(null);
+    lastLock=null;tick();
+  },e=>showDbErr(e));
+})();
+})();
+</script>
+</body>
+</html>
