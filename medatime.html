@@ -1,89 +1,1385 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mê Đá · Lịch làm theo tuần</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="description" content="Hệ thống quản lý lịch làm việc, phân ca thông minh và nhận ca bổ sung thời gian thực dành cho Mê Đá.">
+<title>Mê Đá · Quản lý Lịch làm việc &amp; Nhận ca trực tuyến</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ecdcb6;--paper:#f8eed3;--ink:#3b2a20;--muted:#7b6652;--red:#b5482a;--gold:#d9a441;--green:#2f5d50;--on:#fbf1d9;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241a14;--paper:#33261d;--ink:#f1e2bf;--muted:#b9a283;--red:#c9573a;--gold:#e0b050;--green:#4f8a76;--on:#fff3d9;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#241a14;--paper:#33261d;--ink:#f1e2bf;--muted:#b9a283;--red:#c9573a;--gold:#e0b050;--green:#4f8a76;--on:#fff3d9;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Be Vietnam Pro",Georgia,serif;background-image:radial-gradient(color-mix(in srgb,var(--ink) 14%,transparent) 1px,transparent 1.6px);background-size:16px 16px}
-.wrap{max-width:900px;margin:0 auto;padding:16px 14px 40px}
-header{background:var(--paper);border:3px solid var(--ink);border-radius:8px;box-shadow:6px 6px 0 var(--ink);overflow:hidden;margin-bottom:22px}
-.awning{height:18px;background:repeating-linear-gradient(90deg,var(--red) 0 26px,var(--paper) 26px 52px);border-bottom:3px solid var(--ink)}
-.brand{display:flex;gap:16px;align-items:center;padding:16px 18px}
-.badge{flex:none;width:76px;height:76px;border-radius:50%;background:var(--red);color:var(--on);border:3px double var(--on);outline:3px solid var(--red);display:grid;place-items:center;text-align:center;font:900 22px/1 "Playfair Display",Georgia,serif;letter-spacing:1px}
-h1,h2,.big{font-family:"Playfair Display",Georgia,serif;margin:0}
-h1{font-weight:900;font-size:clamp(24px,6vw,34px);line-height:1.1}
-h2{font-size:20px;padding-bottom:8px;margin-bottom:12px;border-bottom:2px dotted var(--ink)}
-.muted{color:var(--muted)}.sm{font-size:13px}
-.card{background:var(--paper);border:2.5px solid var(--ink);border-radius:8px;box-shadow:5px 5px 0 var(--ink);padding:16px 18px;margin-bottom:22px}
-.row{display:flex;flex-wrap:wrap;gap:12px 36px;margin-bottom:12px}
-.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.big{font-size:22px;font-weight:700}
-.cd{display:flex;gap:10px;flex-wrap:wrap}
-.cb{min-width:64px;text-align:center;background:var(--ink);color:var(--paper);border-radius:6px;padding:8px 6px}
-.cb b{display:block;font:700 28px/1.1 "Courier New",monospace}.cb i{font-size:11px;font-style:normal;opacity:.8}
-#cdmsg{margin:10px 0 0}
-label{display:block;font-weight:700;font-size:13px;margin-bottom:4px}
-input{font:inherit;width:100%;padding:9px 12px;border:2px solid var(--ink);border-radius:6px;background:var(--bg);color:var(--ink)}
-.grid{display:grid;grid-template-columns:76px repeat(3,1fr);gap:6px;margin:14px 0;align-items:center}
-.gh{text-align:center;font-weight:700;font-size:13px}.grid small,.tbl small{display:block;font-weight:400;font-size:10.5px;color:var(--muted)}
-.dl{font-weight:700;font-size:13px}
-.chip{font:inherit;font-size:12.5px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 2px;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--green);color:var(--on);font-weight:700;box-shadow:2px 2px 0 var(--ink)}
-.btn{font:inherit;font-weight:700;background:var(--red);color:var(--on);border:2px solid var(--ink);border-radius:6px;padding:10px 20px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
-.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}.btn.alt{background:var(--green)}
-.act{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
-.tag{display:inline-block;background:var(--gold);color:#3b2a20;border:1.5px solid var(--ink);border-radius:4px;padding:1px 8px;margin:2px;font-size:13px;font-weight:500}
-.who{background:var(--bg);color:var(--ink)}
-.x{font:inherit;border:0;background:none;color:var(--red);cursor:pointer;margin-left:4px;padding:0}
-.scroll{overflow-x:auto}
-.tbl{width:100%;border-collapse:collapse;min-width:520px}
-.tbl th,.tbl td{border:2px solid var(--ink);padding:8px;text-align:center;vertical-align:middle}
-.tbl thead th{background:var(--green);color:var(--on)}.tbl thead small{color:var(--on);opacity:.8}
-.tbl th.rd{background:var(--bg);text-align:left;width:92px}
-.tbl td.q{font:900 28px/1 "Playfair Display",Georgia,serif;color:var(--red);background:repeating-linear-gradient(45deg,transparent 0 6px,color-mix(in srgb,var(--red) 12%,transparent) 6px 8px)}
-.tbl tr.none td.q{background:color-mix(in srgb,var(--red) 18%,var(--paper))}
-.arow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.note{background:var(--gold);color:#3b2a20;border:2px solid var(--ink);border-radius:6px;padding:8px 12px;margin-bottom:18px;font-size:13px}
-footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);opacity:0;pointer-events:none;background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;transition:.25s;max-width:90vw;font-size:14px}
-#toast.show{transform:translate(-50%,0);opacity:1}#toast.bad{background:var(--red);color:var(--on)}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.tab{font:inherit;font-weight:700;padding:9px 16px;border:2.5px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}.tab.on{background:var(--red);color:var(--on);box-shadow:3px 3px 0 var(--ink)}.pub{margin:12px 0;padding:10px 14px;border:2px dashed var(--ink);border-radius:6px;font-weight:700}.pub.on{background:color-mix(in srgb,var(--green) 25%,var(--paper));border-style:solid}.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}a.btn{display:inline-block;text-decoration:none}.whoami{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-bottom:14px;font-size:13px}.whoami b{background:var(--ink);color:var(--paper);border-radius:999px;padding:2px 12px}.whoami b.adm{background:var(--red);color:var(--on)}
+:root {
+  --bg: #f8fafc;
+  --bg-subtle: #f1f5f9;
+  --paper: #ffffff;
+  --paper-hover: #f8fafc;
+  --ink: #0f172a;
+  --ink-secondary: #334155;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --brand: #2563eb;
+  --brand-hover: #1d4ed8;
+  --brand-soft: rgba(37, 99, 235, 0.08);
+  --brand-border: rgba(37, 99, 235, 0.25);
+  --green: #10b981;
+  --green-dark: #059669;
+  --green-soft: #ecfdf5;
+  --green-border: #6ee7b7;
+  --green-text: #065f46;
+  --amber: #f59e0b;
+  --amber-dark: #d97706;
+  --amber-soft: #fef3c7;
+  --amber-tint: rgba(245, 158, 11, 0.08);
+  --amber-border: #f59e0b;
+  --amber-text: #92400e;
+  --red: #ef4444;
+  --red-dark: #dc2626;
+  --red-soft: #fee2e2;
+  --red-tint: rgba(239, 68, 68, 0.08);
+  --red-border: #ef4444;
+  --red-text: #991b1b;
+  --gold: #f59e0b;
+  --on: #ffffff;
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --transition: 175ms cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+:root[data-theme="dark"] {
+  --bg: #090d16;
+  --bg-subtle: #111827;
+  --paper: #111827;
+  --paper-hover: #1e293b;
+  --ink: #f8fafc;
+  --ink-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --border-strong: #334155;
+  --brand: #3b82f6;
+  --brand-hover: #2563eb;
+  --brand-soft: rgba(59, 130, 246, 0.15);
+  --brand-border: rgba(59, 130, 246, 0.35);
+  --green: #10b981;
+  --green-dark: #059669;
+  --green-soft: rgba(16, 185, 129, 0.12);
+  --green-border: rgba(16, 185, 129, 0.4);
+  --green-text: #6ee7b7;
+  --amber: #f59e0b;
+  --amber-dark: #d97706;
+  --amber-soft: rgba(245, 158, 11, 0.18);
+  --amber-tint: rgba(245, 158, 11, 0.09);
+  --amber-border: #f59e0b;
+  --amber-text: #fde68a;
+  --red: #ef4444;
+  --red-dark: #dc2626;
+  --red-soft: rgba(239, 68, 68, 0.18);
+  --red-tint: rgba(239, 68, 68, 0.11);
+  --red-border: #ef4444;
+  --red-text: #fca5a5;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+html {
+  scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.55 "Inter", "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: background-color var(--transition), color var(--transition);
+}
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 20px 64px;
+}
+/* ===== TOPBAR / HEADER ===== */
+header.app-header {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 18px;
+  position: sticky;
+  top: 10px;
+  z-index: 40;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.badge {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font: 800 12px/1.05 "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.brand-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+h1, h2, h3, .big {
+  font-family: "Plus Jakarta Sans", "Be Vietnam Pro", sans-serif;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+h1 {
+  font-weight: 700;
+  font-size: clamp(17px, 2.5vw, 20px);
+  line-height: 1.25;
+  color: var(--ink);
+}
+h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.workspace-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  border: 1px solid var(--brand-border);
+}
+.workspace-pill .live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+}
+.muted {
+  color: var(--muted);
+}
+.sm {
+  font-size: 12.5px;
+}
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+/* ===== NAVIGATION TABS ===== */
+.tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-subtle);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  margin: 0;
+}
+.tab {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 13px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.tab:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+.tab.on {
+  background: var(--paper);
+  color: var(--brand);
+  border-color: var(--border);
+  box-shadow: var(--shadow-xs);
+}
+.tab.logout-tab {
+  color: var(--red);
+}
+.tab.logout-tab:hover {
+  background: var(--red-soft);
+}
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  font-size: 15px;
+  transition: all var(--transition);
+}
+.theme-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+/* ===== STATUS OVERVIEW STRIP (#stCard) ===== */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+  margin-bottom: 18px;
+}
+.status-strip {
+  padding: 16px 20px;
+  background: var(--paper);
+}
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 12px;
+  border-right: 1px solid var(--border);
+}
+.metric-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+@media (max-width: 768px) {
+  .metric-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    padding-right: 0;
+  }
+  .metric-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+.lbl {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.big {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.cd-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cd {
+  display: inline-flex;
+  gap: 6px;
+}
+.cb {
+  min-width: 48px;
+  text-align: center;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 5px 6px;
+}
+.cb b {
+  display: block;
+  font: 700 16px/1.15 "JetBrains Mono", monospace;
+  color: var(--brand);
+}
+.cb i {
+  font-size: 10px;
+  font-style: normal;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+#cdmsg {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+/* ===== SCHEDULE HEALTH SUMMARY BAR (REQUIREMENT 2) ===== */
+.health-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+.health-metrics {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.health-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink);
+  transition: all var(--transition);
+}
+.health-pill b {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+.health-pill.is-total {
+  color: var(--ink-secondary);
+}
+.health-pill.is-filled {
+  background: var(--green-soft);
+  border-color: var(--green-border);
+  color: var(--green-text);
+}
+.health-pill.is-warning {
+  background: var(--amber-soft);
+  border-color: var(--amber-border);
+  color: var(--amber-text);
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+.health-pill.is-warning:hover {
+  background: var(--red-soft);
+  border-color: var(--red-border);
+  color: var(--red-text);
+  transform: translateY(-1px);
+}
+.health-pill.is-all-clear {
+  background: var(--green-soft);
+  border-color: var(--green-border);
+  color: var(--green-text);
+}
+.health-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+  flex: 1;
+  max-width: 280px;
+}
+.health-progress-track {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.health-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand) 0%, var(--green) 100%);
+  transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.health-progress-fill.has-warning {
+  background: linear-gradient(90deg, var(--amber) 0%, var(--green) 100%);
+}
+.health-progress-pct {
+  font: 600 12px/1 "JetBrains Mono", monospace;
+  color: var(--ink-secondary);
+  min-width: 38px;
+  text-align: right;
+}
+/* ===== PULSING INDICATORS ===== */
+@keyframes pulseWarn {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+  }
+}
+@keyframes claimSuccessTransition {
+  0% {
+    background-color: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+    transform: scale(0.98);
+  }
+  40% {
+    background-color: rgba(16, 185, 129, 0.28);
+    border-color: #10b981;
+    transform: scale(1.015);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
+  }
+  100% {
+    background-color: var(--paper);
+    border-color: var(--border);
+    transform: scale(1);
+  }
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  display: inline-block;
+  flex: none;
+  animation: pulseWarn 1.8s infinite ease-in-out;
+}
+.pulse-dot.red {
+  background: var(--red);
+}
+.ok-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+  flex: none;
+}
+/* ===== QUICK STAFF IDENTITY BAR (FOR 1-CLICK CLAIMING) ===== */
+.identity-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  background: color-mix(in srgb, var(--brand-soft) 65%, var(--paper));
+  border: 1px solid var(--brand-border);
+  border-radius: var(--radius-md);
+}
+.identity-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.identity-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.identity-input {
+  max-width: 220px;
+  padding: 6px 11px !important;
+  font-size: 13px !important;
+  height: 34px;
+  background: var(--paper) !important;
+}
+.oneclick-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--paper);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+}
+.oneclick-toggle.active {
+  background: var(--green-soft);
+  border-color: var(--green);
+  color: var(--green-text);
+}
+/* ===== INTERACTIVE SCHEDULE MATRIX (.tbl) ===== */
+.scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-xs);
+  max-height: 75vh;
+  overflow-y: auto;
+}
+.tbl {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 680px;
+}
+.tbl th,
+.tbl td {
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  padding: 12px 14px;
+  vertical-align: top;
+  text-align: left;
+}
+.tbl th:last-child,
+.tbl td:last-child {
+  border-right: none;
+}
+.tbl tbody tr:last-child th,
+.tbl tbody tr:last-child td {
+  border-bottom: none;
+}
+/* Sticky column headers */
+.tbl thead th {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg-subtle);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px 14px;
+  border-bottom: 1.5px solid var(--border-strong);
+  backdrop-filter: blur(8px);
+}
+.tbl thead th:first-child {
+  left: 0;
+  z-index: 30;
+  width: 140px;
+  min-width: 140px;
+}
+.shift-col-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.shift-time-badge {
+  display: inline-block;
+  margin-top: 3px;
+  font: 500 11.5px/1.2 "JetBrains Mono", monospace;
+  color: var(--muted);
+}
+.shift-col-count {
+  font: 600 11px/1 "JetBrains Mono", monospace;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  color: var(--ink-secondary);
+}
+/* Sticky day row headers */
+.tbl th.rd {
+  position: sticky;
+  left: 0;
+  z-index: 15;
+  background: var(--paper);
+  text-align: left;
+  width: 140px;
+  min-width: 140px;
+  border-right: 1.5px solid var(--border-strong);
+  vertical-align: middle;
+}
+.day-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.day-date {
+  display: inline-block;
+  margin-top: 3px;
+  font: 500 11.5px/1.2 "JetBrains Mono", monospace;
+  color: var(--muted);
+}
+.day-warn-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--amber-text);
+  background: var(--amber-soft);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+/* ===== SCHEDULE CELLS: FILLED VS WARNING STATE ===== */
+.tbl td.slot-cell {
+  position: relative;
+  min-width: 185px;
+  height: 104px;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+/* High-Visibility Warning State for Empty / Unassigned Slots */
+.tbl td.q,
+.tbl td.slot-cell.is-warning {
+  background: var(--amber-tint);
+  background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+  background-size: 12px 12px;
+  border: 1.5px dashed var(--amber-border) !important;
+  padding: 10px 12px;
+}
+.tbl td.q:hover,
+.tbl td.slot-cell.is-warning:hover {
+  background: var(--red-soft);
+  border-color: var(--red-border) !important;
+  box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.2), var(--shadow-sm);
+  transform: translateY(-1px);
+  z-index: 5;
+}
+.warn-cell-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 8px;
+}
+.warn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--amber-soft);
+  border: 1px solid var(--amber-border);
+  color: var(--amber-text);
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  box-shadow: var(--shadow-xs);
+}
+.tbl td.slot-cell.is-warning:hover .warn-badge {
+  background: var(--red-soft);
+  border-color: var(--red-border);
+  color: var(--red-text);
+}
+.warn-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.slot-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--paper);
+  color: var(--amber-dark);
+  border: 1px solid var(--amber-border);
+  transition: all var(--transition);
+  box-shadow: var(--shadow-xs);
+}
+.tbl td.slot-cell.is-warning:hover .slot-cta {
+  background: var(--red);
+  color: #ffffff;
+  border-color: var(--red);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+/* Confirmed / Filled Slot State */
+.tbl td.slot-cell.is-filled {
+  background: var(--paper);
+}
+.tbl td.slot-cell.is-filled:hover {
+  background: var(--paper-hover);
+  box-shadow: inset 0 0 0 1.5px var(--brand);
+  z-index: 4;
+}
+.tbl td.slot-cell.is-just-claimed {
+  animation: claimSuccessTransition 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.filled-cell-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 8px;
+}
+.filled-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.confirmed-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green-text);
+  border: 1px solid var(--green-border);
+}
+.slot-edit-hint {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brand);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.tbl td.slot-cell.is-filled:hover .slot-edit-hint {
+  opacity: 1;
+}
+.staff-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-subtle);
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 3px 8px 3px 5px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  transition: all var(--transition);
+}
+.tag.is-me {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.avatar-dot {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+.who {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 5px 10px;
+}
+.x {
+  font: inherit;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all var(--transition);
+}
+.x:hover {
+  background: var(--red-soft);
+  color: var(--red);
+}
+/* ===== FORMS, INPUTS, BUTTONS ===== */
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--ink-secondary);
+  margin-bottom: 6px;
+}
+input, select {
+  font: inherit;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+.btn {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--brand);
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-xs);
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) {
+  background: var(--brand-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+.btn.alt {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+.btn.alt:hover:not(:disabled) {
+  background: var(--bg-subtle);
+  border-color: var(--ink-secondary);
+}
+.btn.success {
+  background: var(--green);
+  color: #ffffff;
+}
+.btn.success:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+.btn.warn {
+  background: var(--amber);
+  color: #ffffff;
+}
+.btn.warn:hover:not(:disabled) {
+  background: var(--amber-dark);
+}
+.btn.danger {
+  background: var(--red-soft);
+  color: var(--red-text);
+  border-color: var(--red-border);
+}
+.btn.danger:hover:not(:disabled) {
+  background: var(--red);
+  color: #ffffff;
+}
+.btn.sm-btn {
+  padding: 6px 11px;
+  font-size: 12px;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.act {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 14px 0 4px;
+}
+/* ===== EMPLOYEE AVAILABILITY REGISTRATION GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: 110px repeat(3, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+  align-items: center;
+}
+.gh {
+  text-align: center;
+  font-weight: 700;
+  font-size: 12.5px;
+  padding: 8px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.grid small, .tbl small {
+  display: block;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--muted);
+}
+.dl {
+  font-weight: 600;
+  font-size: 13px;
+  padding: 6px 8px;
+}
+.chip {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  background: var(--paper);
+  color: var(--ink-secondary);
+  border-radius: var(--radius-sm);
+  padding: 9px 6px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.chip:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+  background: var(--brand-soft);
+}
+.chip[aria-pressed="true"] {
+  background: var(--brand);
+  color: #ffffff;
+  border-color: var(--brand);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+/* ===== ADMIN PUBLISH BANNER & CONTROLS ===== */
+.admin-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  margin-bottom: 16px;
+}
+.admin-control-bar.is-published {
+  background: color-mix(in srgb, var(--green-soft) 65%, var(--paper));
+  border-color: var(--green-border);
+}
+.admin-control-bar.is-draft {
+  background: color-mix(in srgb, var(--amber-soft) 50%, var(--paper));
+  border-color: var(--amber-border);
+}
+.pub-status-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.state-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.state-pill.published {
+  background: var(--green);
+  color: #ffffff;
+}
+.state-pill.draft {
+  background: var(--amber);
+  color: #ffffff;
+}
+.arow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+.note {
+  background: var(--amber-soft);
+  color: var(--amber-text);
+  border: 1px solid var(--amber-border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+/* ===== MODAL / POPOVER DIALOG SYSTEM ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: fadeIn 150ms ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleUp {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--paper);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: scaleUp 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-hdr {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.modal-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.modal-close {
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  color: var(--muted);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  transition: all var(--transition);
+}
+.modal-close:hover {
+  background: var(--red-soft);
+  color: var(--red);
+  border-color: var(--red-border);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+.modal-ftr {
+  padding: 12px 20px 16px;
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.quick-pick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.pick-chip {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-subtle);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all var(--transition);
+}
+.pick-chip:hover {
+  background: var(--brand);
+  color: #ffffff;
+  border-color: var(--brand);
+}
+.pick-chip.avail {
+  background: var(--green-soft);
+  border-color: var(--green-border);
+  color: var(--green-text);
+}
+.pick-chip.avail:hover {
+  background: var(--green);
+  color: #ffffff;
+}
+/* ===== TOAST NOTIFICATION ===== */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 30px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-lg);
+  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: min(92vw, 560px);
+  font-size: 13.5px;
+  font-weight: 600;
+  z-index: 200;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+#toast.show {
+  transform: translate(-50%, 0) scale(1);
+  opacity: 1;
+}
+#toast.bad {
+  background: var(--red-dark);
+  color: #ffffff;
+}
+#toast.warn-toast {
+  background: #b45309;
+  color: #ffffff;
+}
+/* ===== COLLAPSIBLE / SECONDARY SECTIONS ===== */
+.emp-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 640px) {
+  .wrap {
+    padding: 12px 10px 48px;
+  }
+  .header-inner {
+    padding: 12px 14px;
+  }
+  .card {
+    padding: 14px;
+  }
+  .grid {
+    grid-template-columns: 82px repeat(3, 1fr);
+    gap: 5px;
+  }
+  .tbl thead th:first-child,
+  .tbl th.rd {
+    width: 102px;
+    min-width: 102px;
+    padding: 10px 8px;
+  }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div class="awning"></div><div class="brand"><div class="badge">MÊ<br>ĐÁ</div><div><h1 id="ttl">Lịch làm theo tuần</h1><div class="muted" id="sub"></div></div></div></header>
-<div id="banner"></div>
-<p class="muted" id="load">Đang tải…</p>
-<nav class="tabs" id="tabs" hidden><button class="tab" id="tA" type="button">🛠 Quản trị</button><button class="tab" id="tE" type="button" hidden>👤 Xem như nhân viên</button><button class="tab" id="tO" type="button" hidden>Đăng xuất</button></nav>
-<section class="card" id="stCard" hidden><div class="row"><div><div class="lbl">Tuần làm việc</div><div class="big" id="wk">—</div></div><div><div class="lbl">Hạn chót đăng ký</div><div class="big" id="dl">—</div></div></div><div class="cd" id="cd"></div><p class="muted sm" id="cdmsg"></p></section>
-<section class="card" id="loginV" hidden><h2>🔑 Đăng nhập quản trị</h2><div class="arow"><div><label for="lu">Tài khoản</label><input id="lu" autocomplete="username"></div><div><label for="lp">Mật khẩu</label><input id="lp" type="password" autocomplete="current-password"></div></div><div class="act"><button class="btn" id="bLogin" type="button">Đăng nhập</button><button class="btn alt" id="bBack" type="button">← Quay lại</button></div></section>
-<div id="empV" hidden>
-<section class="card"><h2>① Đăng ký ca của bạn</h2><div id="form"></div></section>
-<section class="card"><h2>② Lịch làm chung</h2><div id="esched"></div></section>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="badge">MÊ<br>ĐÁ</div>
+        <div class="brand-meta">
+          <div class="brand-top">
+            <h1 id="ttl">Lịch làm theo tuần</h1>
+            <span class="workspace-pill"><span class="live-dot"></span>Live Sync</span>
+          </div>
+          <div class="muted sm" id="sub">Hệ thống điều phối ca làm việc &amp; nhận ca bổ sung trực tiếp</div>
+        </div>
+      </div>
+      <div class="header-controls">
+        <nav class="tabs" id="tabs" hidden>
+          <button class="tab on" id="tE" type="button">📅 Lịch &amp; Nhân viên</button>
+          <button class="tab" id="tA" type="button">🛠 Quản trị Lịch</button>
+          <button class="tab logout-tab" id="tO" type="button" hidden>Đăng xuất</button>
+        </nav>
+        <button class="theme-btn" id="themeBtn" type="button" title="Chuyển đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">🌙</button>
+      </div>
+    </div>
+  </header>
+  <div id="banner"></div>
+  <p class="muted" id="load">Đang đồng bộ dữ liệu lịch làm việc…</p>
+  <section class="card status-strip" id="stCard" hidden>
+    <div class="status-grid">
+      <div class="metric-item">
+        <div class="lbl">🗓 Tuần làm việc</div>
+        <div class="big" id="wk">—</div>
+        <div class="muted sm" id="pubStateBadge">Đang kiểm tra trạng thái…</div>
+      </div>
+      <div class="metric-item">
+        <div class="lbl">⏰ Hạn chót đăng ký định kỳ</div>
+        <div class="big" id="dl">—</div>
+        <div class="muted sm">Nhận ca bổ sung luôn mở khi lịch công khai</div>
+      </div>
+      <div class="metric-item">
+        <div class="lbl">⏳ Đếm ngược hạn đăng ký</div>
+        <div class="cd-wrap">
+          <div class="cd" id="cd"></div>
+        </div>
+        <p class="muted sm" id="cdmsg"></p>
+      </div>
+    </div>
+  </section>
+  <!-- Đăng nhập Quản trị -->
+  <section class="card" id="loginV" hidden>
+    <h2><span>🔑 Đăng nhập Quản trị viên</span><span class="muted sm">Mặc định: admin / 12345678</span></h2>
+    <div class="arow">
+      <div>
+        <label for="lu">Tài khoản quản trị</label>
+        <input id="lu" autocomplete="username" placeholder="Nhập tài khoản (vd: admin)">
+      </div>
+      <div>
+        <label for="lp">Mật khẩu</label>
+        <input id="lp" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu">
+      </div>
+    </div>
+    <div class="act">
+      <button class="btn" id="bLogin" type="button">Đăng nhập Quản trị</button>
+      <button class="btn alt" id="bBack" type="button">← Quay lại trang Nhân viên</button>
+    </div>
+  </section>
+  <!-- Giao diện Nhân viên -->
+  <div id="empV" class="emp-layout" hidden>
+    <section class="card" id="eschedCard">
+      <h2>
+        <span>① Lịch làm việc chung &amp; Nhận ca bổ sung trực tiếp</span>
+        <span class="muted sm">Bấm trực tiếp vào các ô <b>⚠️ Trống ca</b> để nhận ca ngay lập tức</span>
+      </h2>
+      <div id="esched"></div>
+    </section>
+    <section class="card" id="formCard">
+      <h2>
+        <span>② Đăng ký ca định kỳ của bạn</span>
+        <span class="muted sm">Chọn các ca bạn có thể làm trong tuần</span>
+      </h2>
+      <div id="form"></div>
+    </section>
+  </div>
+  <!-- Giao diện Quản trị -->
+  <div id="admV" hidden>
+    <section class="card">
+      <h2>
+        <span>① Điều phối Lịch làm việc &amp; Công khai lịch (Unconditional Publish)</span>
+        <span class="muted sm">Bấm vào bất kỳ ô nào trên lịch để gán người, sửa ca hoặc đổi trạng thái</span>
+      </h2>
+      <div id="asched"></div>
+    </section>
+    <section class="card">
+      <h2 id="rT">② Danh sách nhân viên đăng ký</h2>
+      <div id="roster"></div>
+    </section>
+    <section class="card">
+      <h2><span>③ Cài đặt tuần làm việc &amp; Hạn chót</span></h2>
+      <div id="admin"></div>
+    </section>
+    <section class="card">
+      <h2><span>④ Bảo mật tài khoản Quản trị</span></h2>
+      <div id="acct"></div>
+    </section>
+  </div>
+  <footer>Mê Đá Workforce Scheduling · Nền tảng quản lý ca làm việc thời gian thực</footer>
 </div>
-<div id="admV" hidden>
-<section class="card"><h2>① Cài đặt tuần &amp; hạn chót</h2><div id="admin"></div></section>
-<section class="card"><h2 id="rT">② Danh sách đăng ký</h2><div id="roster"></div></section>
-<section class="card"><h2>③ Lịch tự động xếp &amp; công bố</h2><div id="asched"></div></section>
-<section class="card"><h2>④ Tài khoản quản trị</h2><div id="acct"></div></section>
-</div>
-<footer>★ Mê Đá · Lịch nhân viên ★</footer>
-</div>
-<div id="toast"></div>
+<!-- Modal / Popover tương tác ô lịch -->
+<div id="slotModalRoot" hidden></div>
+<!-- Toast Notification -->
+<div id="toast" role="status" aria-live="polite"></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyAa70QjZEBbuZ9NfNr723DtlAfSVCxcLIg",
   authDomain: "lichlammeda.firebaseapp.com",
@@ -93,270 +1389,1426 @@ const firebaseConfig = {
   appId: "1:768485590081:web:125b33884b703812a8b2c0",
   measurementId: "G-KMPZ9HRH4V"
 };
-
 const app = initializeApp(firebaseConfig);
 isSupported().then(yes => { if (yes) getAnalytics(app); }).catch(() => {});
 const db = getFirestore(app);
-
-(()=>{
-const SH=[["C","Chiều","14:00–16:00"],["T1","Ca 1 tối","18:00–20:00"],["T2","Ca 2 tối","20:00–22:00"]];
-const DN=["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"];
-const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,"0");
-const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
-const fromYmd=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
-const mondayOf=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-(x.getDay()+6)%7);return x};
-const fmt=d=>pad(d.getDate())+"/"+pad(d.getMonth()+1);
-const hm=t=>{const d=new Date(t);return pad(d.getHours())+":"+pad(d.getMinutes())+" ngày "+fmt(d)};
-const slug=s=>s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40);
-const toLocal=d=>ymd(d)+"T"+pad(d.getHours())+":"+pad(d.getMinutes());
-const h=(t,a,...k)=>{const e=document.createElement(t);for(const x in a||{}){const v=a[x];if(v==null||v===false)continue;if(x==="class")e.className=v;else if(x.slice(0,2)==="on")e[x]=v;else e.setAttribute(x,v===true?"":v)}k.flat().forEach(c=>{if(c!=null&&c!==false)e.append(c)});return e};
-const DEF={u:"admin",salt:"f0a6460aa70be2afb3b2dd7f",h:"4a8b877a890c6c3154cd6ba3edca6c1f68bb4f9753d15f3d89bf405824f86702"};
-let adminOn=false,fails=0,until=0,auth=DEF,cfg=null,regs=[],sched=null,isAdmin=false,draft={},nm="",draftWeek="",formKey="",lastLock=null,filled=false,tt;
-const LK="meda-reg";
-const getMine=()=>{try{const r=JSON.parse(localStorage.getItem(LK));return r&&cfg&&r.week===cfg.week?r:null}catch(e){return null}};
-const isLocked=()=>!!cfg&&Date.now()>=new Date(cfg.deadline).getTime();
-const wr=()=>cfg?regs.filter(r=>r.week===cfg.week):[];
-const rid=()=>cfg.week+"_"+slug(nm);
-const dayDt=d=>{const x=fromYmd(cfg.week);x.setDate(x.getDate()+d);return x};
-const clean=x=>({id:String(x.id||""),name:String(x.name||"").slice(0,30),week:String(x.week||""),slots:x.slots&&typeof x.slots==="object"?x.slots:{},ts:+x.ts||0});
-function toast(m,bad){const t=$("#toast");t.textContent=m;t.className="show"+(bad?" bad":"");clearTimeout(tt);tt=setTimeout(()=>t.className="",3000)}
-
-/* Xếp lịch tự động: ca ít người đăng ký xếp trước, ưu tiên người đang có ít ca nhất (công bằng) */
-function build(){
-  const per=cfg.per||2,rs=wr().sort((a,b)=>a.ts-b.ts||a.name.localeCompare(b.name)),cnt={};
-  rs.forEach(r=>cnt[r.id]=0);
-  const res=DN.map(()=>SH.map(()=>[])),all=[];
-  DN.forEach((_,d)=>SH.forEach(([s],i)=>all.push({d,i,c:rs.filter(r=>r.slots[d+s])})));
-  all.sort((a,b)=>a.c.length-b.c.length||a.d-b.d||a.i-b.i).forEach(x=>{
-    const p=x.c.slice().sort((a,b)=>cnt[a.id]-cnt[b.id]||a.ts-b.ts||a.name.localeCompare(b.name)).slice(0,per);
-    p.forEach(r=>cnt[r.id]++);res[x.d][x.i]=p;
-  });
-  return{res,cnt,rs};
-}
-const cellsOf=res=>{const c={};DN.forEach((_,d)=>SH.forEach((s,i)=>{if(res[d][i].length)c[d+s[0]]=res[d][i].map(r=>r.name)}));return c};
-const sameCells=(a,b)=>DN.every((_,d)=>SH.every(s=>JSON.stringify(a[d+s[0]]||[])===JSON.stringify(b[d+s[0]]||[])));
-const pubOn=()=>!!sched&&!!cfg&&sched.week===cfg.week&&!!sched.cells;
-
-/* Bảng lịch: get(d, mãCa) trả về mảng tên; ca trống hiện "?" */
-function tbl(get){
-  let miss=0;
-  const t=h("table",{class:"tbl"},
-    h("thead",{},h("tr",{},h("th",{},"Ngày"),SH.map(s=>h("th",{},s[1],h("small",{},s[2]))))),
-    h("tbody",{},DN.map((n,d)=>{
-      const row=SH.map(s=>get(d,s[0])),none=row.every(c=>!c.length);
-      return h("tr",{class:none?"none":""},h("th",{class:"rd"},n,h("small",{},fmt(dayDt(d)))),
-        row.map(c=>{if(!c.length){miss++;return h("td",{class:"q",title:"Chưa có ai đăng ký ca này"},"?")}
-          return h("td",{},c.map(x=>h("span",{class:"tag"},x)))}))})));
-  return{el:h("div",{class:"scroll"},t),miss};
-}
-const missNote=m=>h("p",{class:"sm muted"},m?"❓ Có "+m+" ca chưa ai đăng ký nên hiện dấu “?”.":"✅ Tất cả các ca đều đã có người.");
-
-function renderStatus(){
-  if(!cfg){$("#wk").textContent="Chưa mở";$("#dl").textContent="—";return}
-  const a=fromYmd(cfg.week),b=new Date(a);b.setDate(b.getDate()+6);
-  $("#wk").textContent=fmt(a)+" – "+fmt(b)+"/"+b.getFullYear();
-  const d=new Date(cfg.deadline);
-  $("#dl").textContent=DN[(d.getDay()+6)%7]+", "+pad(d.getHours())+":"+pad(d.getMinutes())+" ngày "+fmt(d);
-}
-
-/* ===== Nhân viên ===== */
-function paint(){document.querySelectorAll(".chip").forEach(c=>{const on=!!draft[c.dataset.k];c.setAttribute("aria-pressed",on);c.textContent=on?"✓ Đã chọn":"Chọn"})}
-function other(){nm="";draft={};try{localStorage.removeItem(LK)}catch(e){}formKey="";renderForm()}
-function renderForm(){
-  const box=$("#form"),lk=isLocked(),key=(cfg?cfg.week:"")+"|"+lk;
-  if(key===formKey)return;formKey=key;box.replaceChildren();
-  if(!cfg){box.append(h("p",{class:"muted"},"Quản lý chưa mở đăng ký. Bạn quay lại sau nhé!"));return}
-  if(draftWeek!==cfg.week){draft={};draftWeek=cfg.week;const m=getMine();if(m){nm=m.name;draft={...m.slots}}}
-  if(lk){box.append(h("p",{class:"muted"},"⏰ Đã hết hạn đăng ký. Quản lý sẽ công bố lịch chung ở mục ② khi sẵn sàng."));return}
-  const m=getMine(),inp=h("input",{id:"nm",placeholder:"Tên của bạn: ",maxlength:30,autocomplete:"off"});
-  inp.value=nm;inp.oninput=()=>{nm=inp.value};
-  const grid=h("div",{class:"grid"},h("div"),SH.map(s=>h("div",{class:"gh"},s[1],h("small",{},s[2]))));
-  DN.forEach((n,d)=>grid.append(h("div",{class:"dl"},n,h("small",{},fmt(dayDt(d)))),...SH.map(s=>h("button",{class:"chip",type:"button","data-k":d+s[0],onclick:()=>{draft[d+s[0]]=!draft[d+s[0]];paint()}}))));
-  box.append(h("label",{for:"nm"},"Tên nhân viên"),inp,grid,
-    m&&h("p",{class:"sm",style:"font-weight:700"},"✓ Đã gửi lúc "+hm(m.at)+". Bạn có thể sửa và gửi lại đến hết hạn chót."),
-    h("div",{class:"act"},h("button",{class:"btn",type:"button",onclick:submit},m?"Cập nhật đăng ký":"Gửi đăng ký"),m&&h("button",{class:"btn alt",type:"button",onclick:other},"Đăng ký cho người khác")));
-  paint();
-}
-async function submit(){
-  const n=nm.trim();
-  if(!n||!slug(n))return toast("Hãy nhập tên của bạn trước nhé!",1);
-  if(isLocked())return toast("Đã hết hạn đăng ký",1);
-  const slots={};for(const k in draft)if(draft[k])slots[k]=true;
-  if(!Object.keys(slots).length)return toast("Bạn chưa chọn ca nào",1);
-  nm=n;const m=getMine(),rec={id:rid(),name:n,week:cfg.week,slots,ts:m&&m.name===n?m.ts:Date.now()};
-  try{
-    await api.saveReg(rec);await refresh();
-    try{localStorage.setItem(LK,JSON.stringify({...rec,at:Date.now()}))}catch(e){}
-    formKey="";renderForm();if(isAdmin){renderRoster();renderASched()}toast("Đã lưu lịch của "+n+" ✓");
-  }catch(e){toast("Chưa lưu được: "+(e.message||e.code||"lỗi"),1)}
-}
-function renderESched(){
-  const b=$("#esched");b.replaceChildren();
-  if(!cfg){b.append(h("p",{class:"muted"},"Chưa có tuần nào được mở."));return}
-  if(!pubOn()){b.append(h("p",{class:"muted"},"🔒 Lịch chung chưa được quản lý công bố. Bạn quay lại xem sau nhé!"));return}
-  const{el,miss}=tbl((d,s)=>Array.isArray(sched.cells[d+s])?sched.cells[d+s].map(String):[]);
-  b.append(el,missNote(miss),h("p",{class:"sm muted"},"Quản lý công bố lúc "+hm(sched.at)));
-}
-
-/* ===== Quản trị ===== */
-function renderRoster(){
-  const b=$("#roster"),rs=wr().sort((a,b)=>a.ts-b.ts);b.replaceChildren();
-  $("#rT").textContent="② Danh sách đăng ký"+(cfg?" ("+rs.length+" người)":"");
-  if(!rs.length){b.append(h("p",{class:"muted"},cfg?"Chưa có ai đăng ký.":"—"));return}
-  rs.forEach(r=>b.append(h("span",{class:"tag who"},r.name+" · "+Object.keys(r.slots).length+" ca",h("button",{class:"x",title:"Xóa đăng ký",onclick:()=>delReg(r.id)},"✕"))));
-}
-async function delReg(id){
-  try{await api.deleteReg(id);await refresh()}catch(e){toast("Không xóa được",1)}
-}
-function renderASched(){
-  const b=$("#asched"),lk=isLocked();b.replaceChildren();
-  if(!cfg){b.append(h("p",{class:"muted"},"Hãy lưu cài đặt tuần ở mục ① trước."));return}
-  const{res,cnt,rs}=build(),{el,miss}=tbl((d,s)=>res[d][SH.findIndex(x=>x[0]===s)].map(r=>r.name)),pub=pubOn(),same=pub&&sameCells(cellsOf(res),sched.cells);
-  b.append(h("p",{class:"sm"},lk?"✅ Đã hết hạn: hệ thống đã tự động xếp lịch bên dưới.":"⏳ Chưa hết hạn: đây là bản xem thử. Nút công bố sẽ mở sau hạn chót."),
-    el,missNote(miss),h("div",{},rs.map(r=>h("span",{class:"tag who"},r.name+": "+cnt[r.id]+" ca"))),
-    h("div",{class:"pub"+(pub?" on":"")},pub?"👁 Nhân viên ĐANG xem được lịch"+(same?".":". Lưu ý: bản đã công bố khác bản tự xếp hiện tại, bấm Công bố lại để cập nhật."):"🙈 Lịch đang ẨN với nhân viên."),
-    h("div",{class:"act"},h("button",{class:"btn",type:"button",disabled:!lk,onclick:publish},pub?"Công bố lại":"✅ Công bố cho nhân viên"),pub&&h("button",{class:"btn alt",type:"button",onclick:unpublish},"🙈 Ẩn lịch")));
-}
-async function publish(){
-  if(!isLocked())return toast("Chỉ công bố được sau hạn chót",1);
-  const doc={week:cfg.week,cells:cellsOf(build().res),at:Date.now()};
-  try{await api.setSchedule(doc);sched=doc;renderASched();renderESched();toast("Đã công bố lịch cho nhân viên ✓")}catch(e){toast("Chưa công bố được: "+(e.message||e.code||"lỗi"),1)}
-}
-async function unpublish(){
-  try{await api.clearSchedule();sched=null;renderASched();renderESched();toast("Đã ẩn lịch")}catch(e){toast("Chưa ẩn được: "+(e.message||e.code||"lỗi"),1)}
-}
-function defCfg(){const m=mondayOf(new Date());m.setDate(m.getDate()+7);const d=new Date(m);d.setDate(d.getDate()-1);d.setHours(18,0,0,0);return{week:ymd(m),deadline:d.toISOString(),per:2}}
-function fillAdmin(){const c=cfg||defCfg();$("#aw").value=c.week;$("#ad").value=toLocal(new Date(c.deadline));$("#ap").value=c.per||2}
-async function saveCfg(){
-  const w=$("#aw").value,d=$("#ad").value;
-  if(!w||!d)return toast("Hãy chọn đủ tuần và hạn chót",1);
-  const c={week:ymd(mondayOf(fromYmd(w))),deadline:new Date(d).toISOString(),per:Math.min(10,Math.max(1,+$("#ap").value||2))};
-  try{await api.setConfig(c);cfg=c;lastLock=null;tick();toast("Đã lưu cài đặt ✓")}catch(e){toast("Chưa lưu được: "+(e.message||e.code||"lỗi"),1)}
-}
-function buildAdmin(){
-  $("#admin").append(
-    h("div",{class:"arow"},
-      h("div",{},h("label",{for:"aw"},"Tuần bắt đầu (chọn ngày bất kỳ, tự về Thứ 2)"),h("input",{type:"date",id:"aw"})),
-      h("div",{},h("label",{for:"ad"},"Hạn chót đăng ký"),h("input",{type:"datetime-local",id:"ad"})),
-      h("div",{},h("label",{for:"ap"},"Số người mỗi ca"),h("input",{type:"number",id:"ap",min:1,max:10}))),
-    h("div",{class:"act"},h("button",{class:"btn",type:"button",onclick:saveCfg},"Lưu cài đặt")),
-    h("p",{class:"sm muted"},"Sang tuần mới: chọn ngày của tuần đó rồi lưu. Lịch của tuần cũ sẽ tự ẩn với nhân viên."));
-  fillAdmin();
-}
-
-/* ===== LỚP LƯU TRỮ FIREBASE CLOUD FIRESTORE (api) ===== */
-const api=(()=>{
-  const stateDoc=k=>doc(db,"meda",k);
-  const regDoc=id=>doc(db,"meda_regs",String(id));
-  const getState=async k=>{const s=await getDoc(stateDoc(k));return s.exists()?s.data():null};
-  return{
-    local:false,
-    getConfig:()=>getState("config"),
-    setConfig:c=>setDoc(stateDoc("config"),c),
-    listRegs:async()=>{const s=await getDocs(collection(db,"meda_regs"));return s.docs.map(d=>d.data())},
-    saveReg:r=>setDoc(regDoc(r.id),r),
-    deleteReg:id=>deleteDoc(regDoc(id)),
-    getSchedule:()=>getState("schedule"),
-    setSchedule:d=>setDoc(stateDoc("schedule"),d),
-    clearSchedule:()=>deleteDoc(stateDoc("schedule")),
-    getAuth:()=>getState("auth"),
-    setAuth:a=>setDoc(stateDoc("auth"),a)
+(() => {
+  const SH = [
+    ["C", "Chiều", "14:00–16:00"],
+    ["T1", "Ca 1 tối", "18:00–20:00"],
+    ["T2", "Ca 2 tối", "20:00–22:00"]
+  ];
+  const DN = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
+  const TOTAL_SLOTS = DN.length * SH.length; // 21 slots
+  const $ = s => document.querySelector(s);
+  const pad = n => String(n).padStart(2, "0");
+  const ymd = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  const fromYmd = s => {
+    const [y, m, d] = String(s || "").split("-").map(Number);
+    return y && m && d ? new Date(y, m - 1, d) : new Date();
   };
-})();
-function showDbErr(e){
-  const b=$("#banner");b.replaceChildren();
-  if(!e)return;
-  const msg=e.code==="permission-denied"
-    ?"⚠️ Firebase Firestore đang chặn quyền đọc/ghi (permission-denied). Hãy vào Firebase Console → Firestore Database → Rules và mở quyền allow read, write: if true;"
-    :"⚠️ Chưa kết nối được Firestore ("+(e.code||e.message||"lỗi")+"). Hãy kiểm tra đã bật Firestore Database trên Firebase Console chưa.";
-  b.append(h("div",{class:"note"},msg));
-}
-async function refresh(){
-  try{
-    const[c,sc,au]=await Promise.all([api.getConfig(),api.getSchedule(),api.getAuth()]);
-    cfg=c&&c.week&&!isNaN(new Date(c.deadline))?c:null;sched=sc;auth=au&&au.u&&au.salt&&au.h?au:DEF;
-    if(isAdmin){regs=((await api.listRegs())||[]).map(clean);if(cfg&&!filled){filled=true;fillAdmin()}}
-    showDbErr(null);
-  }catch(e){showDbErr(e);toast("Không tải được dữ liệu Firebase",1)}
-  lastLock=null;tick();
-}
-function renderAll(){renderStatus();renderForm();renderESched();if(isAdmin){renderRoster();renderASched()}}
-const hex=a=>[...new Uint8Array(a)].map(x=>x.toString(16).padStart(2,"0")).join("");
-const hashPw=async(u,p,salt)=>hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(salt+":"+u+":"+p)));
-let unsubRegs=null;
-function watchRegs(){
-  if(unsubRegs)return;
-  unsubRegs=onSnapshot(collection(db,"meda_regs"),snap=>{
-    regs=snap.docs.map(d=>clean(d.data()));
-    if(isAdmin){renderRoster();renderASched()}
-  },e=>showDbErr(e));
-}
-function startAdmin(){
-  watchRegs();
-  if(adminOn){refresh();return}
-  adminOn=true;buildAdmin();
-  $("#acct").append(
-    h("div",{class:"arow"},
-      h("div",{},h("label",{for:"nu"},"Tài khoản mới"),h("input",{id:"nu",autocomplete:"off"})),
-      h("div",{},h("label",{for:"np"},"Mật khẩu mới (từ 8 ký tự)"),h("input",{id:"np",type:"password",autocomplete:"new-password"}))),
-    h("div",{class:"act"},h("button",{class:"btn",type:"button",onclick:changePw},"Đổi tài khoản / mật khẩu")));
-  refresh();
-}
-async function changePw(){
-  const u=$("#nu").value.trim().toLowerCase(),p=$("#np").value;
-  if(!u||p.length<8)return toast("Cần tài khoản và mật khẩu từ 8 ký tự",1);
-  const salt=hex(crypto.getRandomValues(new Uint8Array(12)));
-  try{const d={u,salt,h:await hashPw(u,p,salt)};await api.setAuth(d);auth=d;$("#np").value="";toast("Đã đổi tài khoản & mật khẩu ✓")}catch(e){toast("Chưa đổi được: "+(e.message||e.code||"lỗi"),1)}
-}
-async function login(){
-  if(Date.now()<until)return toast("Thử sai nhiều lần, hãy đợi "+Math.ceil((until-Date.now())/1e3)+" giây",1);
-  const u=$("#lu").value.trim().toLowerCase(),p=$("#lp").value;
-  if(!u||!p)return toast("Hãy nhập tài khoản và mật khẩu",1);
-  try{
-    if(u===auth.u&&(await hashPw(u,p,auth.salt)===auth.h||(auth===DEF&&p==="12345678"))){
-      fails=0;isAdmin=true;try{sessionStorage.setItem("meda-adm","1")}catch(e){}
-      $("#lp").value="";startAdmin();setTab("A");renderAll();tick();toast("Đăng nhập thành công ✓");
-    }else{if(++fails>=5){until=Date.now()+30000;fails=0}toast("Sai tài khoản hoặc mật khẩu",1)}
-  }catch(e){toast("Trình duyệt này không hỗ trợ đăng nhập",1)}
-}
-function logout(){isAdmin=false;try{sessionStorage.removeItem("meda-adm")}catch(e){}setTab("E")}
-function setTab(t){
-  const a=t==="A",ad=a&&isAdmin,lg=a&&!isAdmin;
-  $("#load").hidden=true;$("#tabs").hidden=false;$("#stCard").hidden=lg;
-  $("#admV").hidden=!ad;$("#loginV").hidden=!lg;$("#empV").hidden=a;
-  $("#tE").hidden=!isAdmin;$("#tO").hidden=!isAdmin;
-  $("#tA").classList.toggle("on",a);$("#tE").classList.toggle("on",!a);
-  $("#ttl").textContent=ad?"Quản trị lịch":lg?"Đăng nhập quản trị":"Lịch làm theo tuần";
-  $("#sub").textContent=ad?"Đặt hạn chót, xem lịch tự xếp và công bố cho nhân viên.":lg?"Chỉ dành cho quản lý Mê Đá.":"Chọn ca của bạn trước hạn chót.";
-  if(lg)$("#lu").focus();
-}
-function tick(){
-  const lk=isLocked();if(lk!==lastLock){lastLock=lk;renderAll()}
-  if(!cfg){$("#cdmsg").textContent="";return}
-  const ms=Math.max(0,new Date(cfg.deadline)-Date.now()),v={d:Math.floor(ms/864e5),h:Math.floor(ms/36e5)%24,m:Math.floor(ms/6e4)%60,s:Math.floor(ms/1e3)%60};
-  for(const k in v)$("#cd_"+k).textContent=pad(v[k]);
-  $("#cdmsg").textContent=lk?"Đã hết hạn: không nhận thêm đăng ký.":"Thời gian còn lại để đăng ký ca.";
-}
-
-$("#cd").append(...[["d","ngày"],["h","giờ"],["m","phút"],["s","giây"]].map(([k,l])=>h("div",{class:"cb"},h("b",{id:"cd_"+k},"00"),h("i",{},l))));
-$("#tA").onclick=()=>setTab("A");$("#tE").onclick=()=>setTab("E");$("#tO").onclick=logout;$("#bLogin").onclick=login;$("#bBack").onclick=()=>setTab("E");$("#lp").onkeydown=e=>{if(e.key==="Enter")login()};
-setInterval(tick,1000);
-(async()=>{
-  try{isAdmin=sessionStorage.getItem("meda-adm")==="1"}catch(e){isAdmin=false}
-  if(isAdmin)startAdmin();
-  await refresh();
-  setTab(isAdmin?"A":"E");
-  onSnapshot(collection(db,"meda"),snap=>{
-    const m={};snap.docs.forEach(d=>{m[d.id]=d.data()});
-    const c=m.config,sc=m.schedule||null,au=m.auth;
-    cfg=c&&c.week&&!isNaN(new Date(c.deadline))?c:null;
-    sched=sc;
-    auth=au&&au.u&&au.salt&&au.h?au:DEF;
-    if(isAdmin&&cfg&&!filled){filled=true;fillAdmin()}
-    showDbErr(null);
-    lastLock=null;tick();
-  },e=>showDbErr(e));
-})();
+  const mondayOf = d => {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() - (x.getDay() + 6) % 7);
+    return x;
+  };
+  const fmt = d => pad(d.getDate()) + "/" + pad(d.getMonth() + 1);
+  const hm = t => {
+    const d = new Date(t);
+    return pad(d.getHours()) + ":" + pad(d.getMinutes()) + " ngày " + fmt(d);
+  };
+  const slug = s => String(s || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+  const toLocal = d => ymd(d) + "T" + pad(d.getHours()) + ":" + pad(d.getMinutes());
+  const h = (t, a, ...k) => {
+    const e = document.createElement(t);
+    for (const x in a || {}) {
+      const v = a[x];
+      if (v == null || v === false) continue;
+      if (x === "class") e.className = v;
+      else if (x.slice(0, 2) === "on" && typeof v === "function") e[x] = v;
+      else e.setAttribute(x, v === true ? "" : v);
+    }
+    k.flat(Infinity).forEach(c => {
+      if (c != null && c !== false) e.append(c);
+    });
+    return e;
+  };
+  const AVATAR_COLORS = ["#2563eb", "#059669", "#7c3aed", "#db2777", "#d97706", "#0891b2", "#4f46e5", "#be123c"];
+  const avatarColor = name => {
+    let hash = 0;
+    const s = String(name || "");
+    for (let i = 0; i < s.length; i++) hash = (hash * 31 + s.charCodeAt(i)) | 0;
+    return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+  };
+  const initialsOf = name => {
+    const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return "?";
+    return parts[parts.length - 1][0].toUpperCase();
+  };
+  const DEF = {
+    u: "admin",
+    salt: "f0a6460aa70be2afb3b2dd7f",
+    h: "4a8b877a890c6c3154cd6ba3edca6c1f68bb4f9753d15f3d89bf405824f86702"
+  };
+  function defCfg() {
+    const m = mondayOf(new Date());
+    m.setDate(m.getDate() + 7);
+    const d = new Date(m);
+    d.setDate(d.getDate() - 1);
+    d.setHours(18, 0, 0, 0);
+    return { week: ymd(m), deadline: d.toISOString(), per: 2 };
+  }
+  const LK = "meda-reg";
+  const CACHE_KEY = "meda-state-cache-v2";
+  const ONECLICK_KEY = "meda-oneclick-claim";
+  const STAFF_NAME_KEY = "meda-staff-name";
+  const THEME_KEY = "meda-theme";
+  let adminOn = false;
+  let fails = 0;
+  let until = 0;
+  let auth = DEF;
+  let cfg = defCfg();
+  let regs = [];
+  let sched = null;
+  let isAdmin = false;
+  let draft = {};
+  let nm = "";
+  let draftWeek = "";
+  let formKey = "";
+  let lastLock = null;
+  let filled = false;
+  let tt = null;
+  let oneClickMode = false;
+  let adminCustomCells = null; // Holds admin live edits even before publishing
+  const justClaimedCells = new Set();
+  // Load saved local preferences & cache
+  try {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme === "dark" || savedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+    oneClickMode = localStorage.getItem(ONECLICK_KEY) === "1";
+    const savedName = localStorage.getItem(STAFF_NAME_KEY);
+    if (savedName) nm = savedName;
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+    if (cached) {
+      if (cached.cfg && cached.cfg.week) cfg = cached.cfg;
+      if (cached.sched) sched = cached.sched;
+      if (Array.isArray(cached.regs)) regs = cached.regs;
+    }
+  } catch (e) {}
+  function persistCache() {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ cfg, sched, regs }));
+    } catch (e) {}
+  }
+  function updateThemeBtn() {
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    const btn = $("#themeBtn");
+    if (btn) btn.textContent = cur === "dark" ? "☀️" : "🌙";
+  }
+  $("#themeBtn").onclick = () => {
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    updateThemeBtn();
+  };
+  updateThemeBtn();
+  const getMine = () => {
+    try {
+      const r = JSON.parse(localStorage.getItem(LK));
+      return r && cfg && r.week === cfg.week ? r : null;
+    } catch (e) {
+      return null;
+    }
+  };
+  const setStaffName = val => {
+    nm = String(val || "").slice(0, 30);
+    try { localStorage.setItem(STAFF_NAME_KEY, nm); } catch (e) {}
+    const formInp = $("#nm");
+    if (formInp && formInp.value !== nm) formInp.value = nm;
+    const quickInp = $("#quickStaffName");
+    if (quickInp && quickInp.value !== nm) quickInp.value = nm;
+  };
+  const isLocked = () => !!cfg && Date.now() >= new Date(cfg.deadline).getTime();
+  const wr = () => (cfg ? regs.filter(r => r.week === cfg.week) : []);
+  const rid = nameStr => cfg.week + "_" + slug(nameStr || nm);
+  const dayDt = d => {
+    const x = fromYmd(cfg.week);
+    x.setDate(x.getDate() + d);
+    return x;
+  };
+  const clean = x => ({
+    id: String(x.id || ""),
+    name: String(x.name || "").slice(0, 30),
+    week: String(x.week || ""),
+    slots: x.slots && typeof x.slots === "object" ? x.slots : {},
+    ts: +x.ts || 0
+  });
+  function toast(m, bad) {
+    const t = $("#toast");
+    t.textContent = m;
+    t.className = "show" + (bad === 1 || bad === true ? " bad" : bad === "warn" ? " warn-toast" : "");
+    clearTimeout(tt);
+    tt = setTimeout(() => { t.className = ""; }, 3800);
+  }
+  /* ===== XẾP LỊCH TỰ ĐỘNG CÔNG BẰNG ===== */
+  function build() {
+    const per = (cfg && cfg.per) || 2;
+    const rs = wr().sort((a, b) => a.ts - b.ts || a.name.localeCompare(b.name));
+    const cnt = {};
+    rs.forEach(r => { cnt[r.id] = 0; });
+    const res = DN.map(() => SH.map(() => []));
+    const all = [];
+    DN.forEach((_, d) => SH.forEach(([s], i) => all.push({ d, i, c: rs.filter(r => r.slots[d + s]) })));
+    all.sort((a, b) => a.c.length - b.c.length || a.d - b.d || a.i - b.i).forEach(x => {
+      const p = x.c.slice().sort((a, b) => cnt[a.id] - cnt[b.id] || a.ts - b.ts || a.name.localeCompare(b.name)).slice(0, per);
+      p.forEach(r => { cnt[r.id]++; });
+      res[x.d][x.i] = p;
+    });
+    return { res, cnt, rs };
+  }
+  const cellsOf = res => {
+    const c = {};
+    DN.forEach((_, d) => SH.forEach((s, i) => {
+      c[d + s[0]] = res[d][i].length ? res[d][i].map(r => r.name) : [];
+    }));
+    return c;
+  };
+  const normalizeCells = raw => {
+    const c = {};
+    DN.forEach((_, d) => SH.forEach(s => {
+      const k = d + s[0];
+      c[k] = Array.isArray(raw && raw[k]) ? raw[k].map(String).filter(Boolean) : [];
+    }));
+    return c;
+  };
+  const countEmptySlots = cells => {
+    let empty = 0;
+    DN.forEach((_, d) => SH.forEach(s => {
+      const arr = cells && cells[d + s[0]];
+      if (!Array.isArray(arr) || arr.length === 0) empty++;
+    }));
+    return empty;
+  };
+  const pubOn = () => !!sched && !!cfg && sched.week === cfg.week && !!sched.cells && sched.published !== false;
+  // Returns the active cells for the current week (preserving custom edits & claimed shifts)
+  function getWorkingCells() {
+    if (sched && cfg && sched.week === cfg.week && sched.cells) {
+      return normalizeCells(sched.cells);
+    }
+    if (adminCustomCells && adminCustomCells.week === cfg.week) {
+      return normalizeCells(adminCustomCells.cells);
+    }
+    return normalizeCells(cellsOf(build().res));
+  }
+  /* ===== SCHEDULE HEALTH SUMMARY BAR (REQUIREMENT 2) ===== */
+  function renderHealthBar(cells, containerEl) {
+    const emptyCount = countEmptySlots(cells);
+    const filledCount = TOTAL_SLOTS - emptyCount;
+    const pct = Math.round((filledCount / TOTAL_SLOTS) * 100);
+    const scrollToFirstWarning = () => {
+      const firstWarn = containerEl.querySelector("td.is-warning");
+      if (firstWarn) {
+        firstWarn.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        firstWarn.style.boxShadow = "0 0 0 4px rgba(239, 68, 68, 0.45)";
+        setTimeout(() => { firstWarn.style.boxShadow = ""; }, 1200);
+      }
+    };
+    return h("div", { class: "health-bar" },
+      h("div", { class: "health-metrics" },
+        h("div", { class: "health-pill is-total" },
+          "📊 Tổng số ca:",
+          h("b", {}, String(TOTAL_SLOTS))
+        ),
+        h("div", { class: "health-pill is-filled" },
+          h("span", { class: "ok-dot" }),
+          "Đã xếp người:",
+          h("b", {}, `${filledCount}/${TOTAL_SLOTS} ca`)
+        ),
+        emptyCount > 0
+          ? h("button", {
+              type: "button",
+              class: "health-pill is-warning",
+              title: "Bấm để chuyển tới ô đang trống ca",
+              onclick: scrollToFirstWarning
+            },
+              h("span", { class: "pulse-dot red" }),
+              "⚠️ Trống ca / Chưa có người:",
+              h("b", {}, `${emptyCount} ô`)
+            )
+          : h("div", { class: "health-pill is-all-clear" },
+              "✅ Trống ca:",
+              h("b", {}, "0 ô (Đủ 100% quân số)")
+            )
+      ),
+      h("div", { class: "health-progress-wrap" },
+        h("div", { class: "health-progress-track" },
+          h("div", {
+            class: "health-progress-fill" + (emptyCount > 0 ? " has-warning" : ""),
+            style: `width:${pct}%`
+          })
+        ),
+        h("span", { class: "health-progress-pct" }, `${pct}%`)
+      )
+    );
+  }
+  /* ===== BẢNG LỊCH TƯƠNG TÁC (REQUIREMENTS 2, 3, 4) ===== */
+  function tbl(get, mode = "employee") {
+    let miss = 0;
+    const per = (cfg && cfg.per) || 2;
+    const currentUserSlug = slug(nm || (getMine() && getMine().name) || "");
+    // Compute per-column filled count
+    const colFilled = SH.map(([sCode]) => {
+      let c = 0;
+      DN.forEach((_, d) => { if ((get(d, sCode) || []).length > 0) c++; });
+      return c;
+    });
+    const wrapper = h("div", { class: "schedule-matrix-root" });
+    const tableEl = h("table", { class: "tbl" },
+      h("thead", {},
+        h("tr", {},
+          h("th", {}, "Ngày / Thứ"),
+          SH.map((s, idx) => h("th", {},
+            h("div", { class: "shift-col-hdr" },
+              h("span", {}, s[1]),
+              h("span", { class: "shift-col-count" }, `${colFilled[idx]}/${DN.length}`)
+            ),
+            h("small", { class: "shift-time-badge" }, "🕒 " + s[2])
+          ))
+        )
+      ),
+      h("tbody", {},
+        DN.map((n, d) => {
+          const row = SH.map(s => get(d, s[0]));
+          const emptyInDay = row.filter(c => !c.length).length;
+          const none = emptyInDay === SH.length;
+          return h("tr", { class: none ? "none" : "" },
+            h("th", { class: "rd" },
+              h("div", { class: "day-name" }, n),
+              h("small", { class: "day-date" }, fmt(dayDt(d))),
+              emptyInDay > 0 && h("div", { class: "day-warn-tag" }, `⚠️ ${emptyInDay} ca trống`)
+            ),
+            row.map((c, sIdx) => {
+              const sCode = SH[sIdx][0];
+              const cellKey = d + sCode;
+              if (!c.length) {
+                miss++;
+                const defaultCta = mode === "admin"
+                  ? "+ Gán người / Nhận ca"
+                  : "+ Nhận ca này · Đăng ký bổ sung";
+                const hoverCta = mode === "admin"
+                  ? "+ Bấm để điều phối ca ngay"
+                  : "+ Bấm để nhận ca ngay";
+                return h("td", {
+                  class: "q slot-cell is-warning",
+                  "data-cell": cellKey,
+                  title: "Ca đang trống — Bấm để nhận ca hoặc gán nhân sự ngay",
+                  onclick: () => handleSlotClick(d, sIdx, cellKey, c, mode)
+                },
+                  h("div", { class: "warn-cell-inner" },
+                    h("span", { class: "warn-badge" },
+                      h("span", { class: "pulse-dot" }),
+                      "⚠️ Trống ca / Chưa có người"
+                    ),
+                    h("div", { class: "warn-sub" },
+                      h("span", {}, `0/${per} nhân sự`),
+                      h("span", {}, "Ca đang mở")
+                    ),
+                    h("span", { class: "slot-cta", "data-default": defaultCta, "data-hover": hoverCta }, hoverCta)
+                  )
+                );
+              }
+              const isClaimedAnim = justClaimedCells.has(cellKey);
+              return h("td", {
+                class: "slot-cell is-filled" + (isClaimedAnim ? " is-just-claimed" : ""),
+                "data-cell": cellKey,
+                title: mode === "admin" ? "Bấm để chỉnh sửa nhân sự trong ca" : "Bấm để xem chi tiết hoặc đăng ký bổ sung",
+                onclick: () => handleSlotClick(d, sIdx, cellKey, c, mode)
+              },
+                h("div", { class: "filled-cell-inner" },
+                  h("div", { class: "filled-top" },
+                    h("span", { class: "confirmed-pill" },
+                      h("span", { class: "ok-dot" }),
+                      `Đã xếp (${c.length}/${per})`
+                    ),
+                    h("span", { class: "slot-edit-hint" },
+                      mode === "admin" ? "✎ Tùy chỉnh" : (c.length < per ? "+ Bổ sung" : "Chi tiết")
+                    )
+                  ),
+                  h("div", { class: "staff-list" },
+                    c.map(personName => {
+                      const isMe = currentUserSlug && slug(personName) === currentUserSlug;
+                      return h("span", { class: "tag" + (isMe ? " is-me" : "") },
+                        h("span", {
+                          class: "avatar-dot",
+                          style: `background:${avatarColor(personName)}`
+                        }, initialsOf(personName)),
+                        personName
+                      );
+                    })
+                  )
+                )
+              );
+            })
+          );
+        })
+      )
+    );
+    const cellsSnapshot = {};
+    DN.forEach((_, d) => SH.forEach(s => { cellsSnapshot[d + s[0]] = get(d, s[0]); }));
+    wrapper.append(
+      renderHealthBar(cellsSnapshot, wrapper),
+      h("div", { class: "scroll" }, tableEl)
+    );
+    return { el: wrapper, miss };
+  }
+  const missNote = m => h("p", { class: "sm muted", style: "margin-top:10px" },
+    m
+      ? `⚠️ Hệ thống ghi nhận còn ${m} ô trống ca chưa có người nhận. Nhân viên hoặc Quản lý có thể bấm trực tiếp vào ô cảnh báo để nhận ca bổ sung.`
+      : "✅ Tuyệt vời! Tất cả 21 ca trong tuần đều đã có nhân sự đảm nhận."
+  );
+  /* ===== ONE-CLICK INSTANT SLOT CLAIMING & ADMIN CUSTOMIZATION (REQUIREMENT 3) ===== */
+  async function assignPersonToSlot(cellKey, personName, isSilentToast = false) {
+    const cleanName = String(personName || "").trim().slice(0, 30);
+    if (!cleanName || !slug(cleanName)) {
+      toast("Vui lòng nhập tên nhân viên hợp lệ!", 1);
+      return false;
+    }
+    setStaffName(cleanName);
+    const cells = getWorkingCells();
+    const curList = Array.isArray(cells[cellKey]) ? [...cells[cellKey]] : [];
+    const targetSlug = slug(cleanName);
+    if (curList.some(x => slug(x) === targetSlug)) {
+      toast(`${cleanName} đã có tên trong ca này rồi!`, "warn");
+      return false;
+    }
+    const wasEmpty = curList.length === 0;
+    curList.push(cleanName);
+    cells[cellKey] = curList;
+    if (wasEmpty) {
+      justClaimedCells.add(cellKey);
+      setTimeout(() => justClaimedCells.delete(cellKey), 1800);
+    }
+    const isPublishedNow = pubOn() || (!isAdmin);
+    const nextSched = {
+      week: cfg.week,
+      cells,
+      published: isPublishedNow ? true : (sched ? sched.published !== false : false),
+      at: Date.now()
+    };
+    sched = nextSched;
+    adminCustomCells = { week: cfg.week, cells };
+    // Also sync with employee registration record
+    const existingReg = regs.find(r => r.week === cfg.week && slug(r.name) === targetSlug);
+    const updatedReg = existingReg
+      ? { ...existingReg, slots: { ...existingReg.slots, [cellKey]: true } }
+      : { id: cfg.week + "_" + targetSlug, name: cleanName, week: cfg.week, slots: { [cellKey]: true }, ts: Date.now() };
+    const regIdx = regs.findIndex(r => r.id === updatedReg.id);
+    if (regIdx >= 0) regs[regIdx] = updatedReg;
+    else regs.push(updatedReg);
+    try {
+      localStorage.setItem(LK, JSON.stringify({ ...updatedReg, at: Date.now() }));
+    } catch (e) {}
+    persistCache();
+    renderAll();
+    if (!isSilentToast) {
+      toast("Đã nhận ca bổ sung thành công!");
+    }
+    // Persist asynchronously to Firebase Firestore
+    try {
+      await Promise.all([
+        api.setSchedule(nextSched),
+        api.saveReg(updatedReg)
+      ]);
+    } catch (e) {
+      // Optimistic state is already updated and cached locally
+    }
+    return true;
+  }
+  async function removePersonFromSlot(cellKey, personName) {
+    const cells = getWorkingCells();
+    const curList = Array.isArray(cells[cellKey]) ? [...cells[cellKey]] : [];
+    const targetSlug = slug(personName);
+    const nextList = curList.filter(x => slug(x) !== targetSlug);
+    cells[cellKey] = nextList;
+    const nextSched = {
+      week: cfg.week,
+      cells,
+      published: sched ? sched.published !== false : false,
+      at: Date.now()
+    };
+    sched = nextSched;
+    adminCustomCells = { week: cfg.week, cells };
+    persistCache();
+    renderAll();
+    toast(`Đã gỡ ${personName} khỏi ca làm việc`);
+    try {
+      await api.setSchedule(nextSched);
+    } catch (e) {}
+  }
+  async function clearSingleSlot(cellKey) {
+    const cells = getWorkingCells();
+    cells[cellKey] = [];
+    const nextSched = {
+      week: cfg.week,
+      cells,
+      published: sched ? sched.published !== false : false,
+      at: Date.now()
+    };
+    sched = nextSched;
+    adminCustomCells = { week: cfg.week, cells };
+    persistCache();
+    renderAll();
+    toast("Đã chuyển ô về trạng thái Trống ca (Cảnh báo)", "warn");
+    try {
+      await api.setSchedule(nextSched);
+    } catch (e) {}
+  }
+  function closeSlotModal() {
+    const root = $("#slotModalRoot");
+    if (root) {
+      root.hidden = true;
+      root.replaceChildren();
+    }
+  }
+  function handleSlotClick(dIdx, sIdx, cellKey, currentNames, mode) {
+    const isEmpty = !currentNames || currentNames.length === 0;
+    const savedUser = (nm || (getMine() && getMine().name) || "").trim();
+    // Instant 1-Click Claim for Members if 1-Click Mode is active & slot is empty & name is known
+    if (mode === "employee" && isEmpty && oneClickMode && savedUser && slug(savedUser)) {
+      assignPersonToSlot(cellKey, savedUser);
+      return;
+    }
+    openSlotModal(dIdx, sIdx, cellKey, currentNames, mode);
+  }
+  function openSlotModal(dIdx, sIdx, cellKey, currentNames, mode) {
+    const root = $("#slotModalRoot");
+    root.replaceChildren();
+    root.hidden = false;
+    const dayLabel = `${DN[dIdx]} (${fmt(dayDt(dIdx))})`;
+    const shiftLabel = `${SH[sIdx][1]} (${SH[sIdx][2]})`;
+    const isEmpty = !currentNames || currentNames.length === 0;
+    const per = (cfg && cfg.per) || 2;
+    const savedUser = (nm || (getMine() && getMine().name) || "").trim();
+    const nameInput = h("input", {
+      id: "modalClaimName",
+      placeholder: mode === "admin" ? "Nhập tên nhân viên cần gán vào ca..." : "Nhập tên hoặc mã nhân viên của bạn...",
+      value: mode === "admin" ? "" : savedUser,
+      maxlength: 30,
+      autocomplete: "off"
+    });
+    const doAssign = async customName => {
+      const target = (customName != null ? customName : nameInput.value).trim();
+      if (!target || !slug(target)) {
+        nameInput.focus();
+        return toast("Hãy nhập tên nhân viên trước khi xác nhận!", 1);
+      }
+      closeSlotModal();
+      await assignPersonToSlot(cellKey, target);
+    };
+    nameInput.onkeydown = e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        doAssign();
+      } else if (e.key === "Escape") {
+        closeSlotModal();
+      }
+    };
+    // Known staff from registrations for 1-tap selection
+    const weekRegs = wr();
+    const availStaff = weekRegs.filter(r => r.slots && r.slots[cellKey] && !currentNames.some(n => slug(n) === slug(r.name)));
+    const otherStaff = weekRegs.filter(r => (!r.slots || !r.slots[cellKey]) && !currentNames.some(n => slug(n) === slug(r.name)));
+    const modalCard = h("div", {
+      class: "modal-card",
+      onclick: e => e.stopPropagation()
+    },
+      h("div", { class: "modal-hdr" },
+        h("div", {},
+          h("div", { class: "modal-title" },
+            mode === "admin" ? "🛠 Điều phối & Chỉnh sửa Ca làm việc" : "⚡ Nhận ca bổ sung trực tiếp"
+          ),
+          h("div", { class: "modal-sub" }, `📅 ${dayLabel} · 🕒 ${shiftLabel}`)
+        ),
+        h("button", {
+          type: "button",
+          class: "modal-close",
+          onclick: closeSlotModal,
+          "aria-label": "Đóng"
+        }, "✕")
+      ),
+      h("div", { class: "modal-body" },
+        // Status banner inside modal
+        isEmpty
+          ? h("div", {
+              style: "display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:8px;background:var(--amber-soft);border:1.5px dashed var(--amber-border);color:var(--amber-text);font-weight:600;font-size:12.5px"
+            },
+              h("span", {}, "⚠️ Trống ca / Chưa có người đăng ký"),
+              h("span", {}, `0/${per} người`)
+            )
+          : h("div", {},
+              h("label", {}, `Nhân sự trong ca hiện tại (${currentNames.length}/${per})`),
+              h("div", { class: "staff-list", style: "gap:8px" },
+                currentNames.map(person => {
+                  const canRemove = mode === "admin" || (savedUser && slug(savedUser) === slug(person));
+                  return h("span", { class: "tag who" },
+                    h("span", {
+                      class: "avatar-dot",
+                      style: `background:${avatarColor(person)}`
+                    }, initialsOf(person)),
+                    person,
+                    canRemove && h("button", {
+                      type: "button",
+                      class: "x",
+                      title: "Gỡ khỏi ca này",
+                      onclick: async () => {
+                        await removePersonFromSlot(cellKey, person);
+                        closeSlotModal();
+                      }
+                    }, "✕")
+                  );
+                })
+              )
+            ),
+        // Quick-pick staff dropdown + chips (for Admin or fast staff selection)
+        (availStaff.length > 0 || otherStaff.length > 0) && h("div", {},
+          mode === "admin" && h("div", { style: "margin-bottom:10px" },
+            h("label", { for: "modalSelectStaff" }, "Chọn nhân viên từ danh sách đăng ký:"),
+            h("select", {
+              id: "modalSelectStaff",
+              onchange: e => {
+                if (e.target.value) doAssign(e.target.value);
+              }
+            },
+              h("option", { value: "" }, "— Chọn nhân viên để gán ngay vào ca —"),
+              availStaff.length > 0 && h("optgroup", { label: "★ Đã đăng ký ca này" },
+                availStaff.map(r => h("option", { value: r.name }, `★ ${r.name} (Đã ĐK ca này)`))
+              ),
+              otherStaff.length > 0 && h("optgroup", { label: "Nhân viên khác trong tuần" },
+                otherStaff.map(r => h("option", { value: r.name }, r.name))
+              )
+            )
+          ),
+          h("label", {},
+            mode === "admin"
+              ? "Hoặc bấm chọn nhanh nhân viên (1-Click):"
+              : "Hoặc chạm vào tên của bạn dưới đây để nhận ca ngay:"
+          ),
+          h("div", { class: "quick-pick-grid" },
+            availStaff.map(r => h("button", {
+              type: "button",
+              class: "pick-chip avail",
+              onclick: () => doAssign(r.name)
+            }, `★ ${r.name} (Đã ĐK ca này)`)),
+            otherStaff.map(r => h("button", {
+              type: "button",
+              class: "pick-chip",
+              onclick: () => doAssign(r.name)
+            }, `+ ${r.name}`))
+          )
+        ),
+        // Direct Name Input
+        h("div", {},
+          h("label", { for: "modalClaimName" },
+            mode === "admin" ? "Thêm / Gán nhân sự theo tên:" : "Tên của bạn để nhận ca này:"
+          ),
+          nameInput
+        ),
+        // Admin quick self-claim or reset slot controls
+        mode === "admin" && h("div", { style: "display:flex;gap:8px;flex-wrap:wrap;padding-top:4px;border-top:1px solid var(--border)" },
+          h("button", {
+            type: "button",
+            class: "btn alt sm-btn",
+            onclick: () => doAssign("Quản lý (Admin)")
+          }, "⚡ Quản lý tự nhận ca này"),
+          !isEmpty && h("button", {
+            type: "button",
+            class: "btn danger sm-btn",
+            onclick: async () => {
+              await clearSingleSlot(cellKey);
+              closeSlotModal();
+            }
+          }, "⚠️ Đặt về Trống ca")
+        )
+      ),
+      h("div", { class: "modal-ftr" },
+        h("button", {
+          type: "button",
+          class: "btn alt",
+          onclick: closeSlotModal
+        }, "Đóng"),
+        h("button", {
+          type: "button",
+          class: "btn success",
+          onclick: () => doAssign()
+        }, mode === "admin" ? "✓ Gán vào ca ngay" : "⚡ + Nhận ca này ngay")
+      )
+    );
+    const backdrop = h("div", {
+      class: "modal-backdrop",
+      onclick: closeSlotModal
+    }, modalCard);
+    root.append(backdrop);
+    setTimeout(() => nameInput.focus(), 30);
+  }
+  /* ===== HEADER & STATUS STRIP ===== */
+  function renderStatus() {
+    if (!cfg) {
+      $("#wk").textContent = "Chưa mở";
+      $("#dl").textContent = "—";
+      return;
+    }
+    const a = fromYmd(cfg.week);
+    const b = new Date(a);
+    b.setDate(b.getDate() + 6);
+    $("#wk").textContent = fmt(a) + " – " + fmt(b) + "/" + b.getFullYear();
+    const d = new Date(cfg.deadline);
+    $("#dl").textContent = DN[(d.getDay() + 6) % 7] + ", " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + " ngày " + fmt(d);
+    const pubBadge = $("#pubStateBadge");
+    if (pubBadge) {
+      const isPub = pubOn();
+      const emptyCount = countEmptySlots(getWorkingCells());
+      pubBadge.innerHTML = isPub
+        ? `<span style="color:var(--green-dark);font-weight:700">● Đã công khai lịch</span> ${emptyCount > 0 ? `(Còn ${emptyCount} ô trống ca)` : `(Đủ 100% ca)`}`
+        : `<span style="color:var(--amber-dark);font-weight:700">○ Bản nháp (Draft)</span> · Chưa hiển thị công khai`;
+    }
+  }
+  /* ===== GIAO DIỆN NHÂN VIÊN ===== */
+  function paint() {
+    document.querySelectorAll(".chip").forEach(c => {
+      const on = !!draft[c.dataset.k];
+      c.setAttribute("aria-pressed", on);
+      c.textContent = on ? "✓ Đã chọn" : "+ Chọn ca";
+    });
+  }
+  function other() {
+    nm = "";
+    draft = {};
+    try { localStorage.removeItem(LK); } catch (e) {}
+    formKey = "";
+    renderForm();
+  }
+  function renderForm() {
+    const box = $("#form");
+    const lk = isLocked();
+    const key = (cfg ? cfg.week : "") + "|" + lk;
+    if (key === formKey) return;
+    formKey = key;
+    box.replaceChildren();
+    if (!cfg) {
+      box.append(h("p", { class: "muted" }, "Quản lý chưa mở đăng ký. Bạn quay lại sau nhé!"));
+      return;
+    }
+    if (draftWeek !== cfg.week) {
+      draft = {};
+      draftWeek = cfg.week;
+      const m = getMine();
+      if (m) {
+        nm = m.name;
+        draft = { ...m.slots };
+      }
+    }
+    if (lk) {
+      box.append(
+        h("div", { class: "note", style: "margin-bottom:0" },
+          h("span", {}, "⏰ Đã hết hạn đăng ký ca định kỳ. Tuy nhiên, bạn vẫn có thể bấm trực tiếp vào các ô ⚠️ Trống ca trên bảng Lịch làm việc chung (Mục ①) để nhận ca bổ sung ngay lập tức!")
+        )
+      );
+      return;
+    }
+    const m = getMine();
+    const inp = h("input", {
+      id: "nm",
+      placeholder: "Nhập họ tên của bạn (VD: Minh Anh)...",
+      maxlength: 30,
+      autocomplete: "off"
+    });
+    inp.value = nm;
+    inp.oninput = () => setStaffName(inp.value);
+    const grid = h("div", { class: "grid" },
+      h("div", { class: "gh" }, "Ngày"),
+      SH.map(s => h("div", { class: "gh" }, s[1], h("small", {}, s[2])))
+    );
+    DN.forEach((n, d) => grid.append(
+      h("div", { class: "dl" }, n, h("small", {}, fmt(dayDt(d)))),
+      ...SH.map(s => h("button", {
+        class: "chip",
+        type: "button",
+        "data-k": d + s[0],
+        onclick: () => {
+          draft[d + s[0]] = !draft[d + s[0]];
+          paint();
+        }
+      }))
+    ));
+    box.append(
+      h("label", { for: "nm" }, "Tên nhân viên"),
+      inp,
+      grid,
+      m && h("p", { class: "sm", style: "font-weight:600;color:var(--green-dark)" },
+        "✓ Đã gửi lúc " + hm(m.at) + ". Bạn có thể chỉnh sửa và gửi lại bất kỳ lúc nào trước hạn chót."
+      ),
+      h("div", { class: "act" },
+        h("button", { class: "btn", type: "button", onclick: submit },
+          m ? "💾 Cập nhật đăng ký ca" : "🚀 Gửi đăng ký ca"
+        ),
+        m && h("button", { class: "btn alt", type: "button", onclick: other },
+          "👤 Đăng ký cho người khác"
+        )
+      )
+    );
+    paint();
+  }
+  async function submit() {
+    const n = nm.trim();
+    if (!n || !slug(n)) return toast("Hãy nhập tên của bạn trước nhé!", 1);
+    if (isLocked()) return toast("Đã hết hạn đăng ký định kỳ — Hãy bấm vào ô Trống ca trên lịch để nhận ca bổ sung!", 1);
+    const slots = {};
+    for (const k in draft) if (draft[k]) slots[k] = true;
+    if (!Object.keys(slots).length) return toast("Bạn chưa chọn ca nào", 1);
+    setStaffName(n);
+    const m = getMine();
+    const rec = {
+      id: rid(n),
+      name: n,
+      week: cfg.week,
+      slots,
+      ts: m && m.name === n ? m.ts : Date.now()
+    };
+    // Optimistic update
+    const idx = regs.findIndex(r => r.id === rec.id);
+    if (idx >= 0) regs[idx] = rec;
+    else regs.push(rec);
+    try {
+      localStorage.setItem(LK, JSON.stringify({ ...rec, at: Date.now() }));
+    } catch (e) {}
+    persistCache();
+    formKey = "";
+    renderForm();
+    if (isAdmin) {
+      renderRoster();
+      renderASched();
+    }
+    toast("Đã lưu lịch đăng ký của " + n + " ✓");
+    try {
+      await api.saveReg(rec);
+    } catch (e) {}
+  }
+  function renderESched() {
+    const b = $("#esched");
+    b.replaceChildren();
+    if (!cfg) {
+      b.append(h("p", { class: "muted" }, "Chưa có tuần làm việc nào được mở."));
+      return;
+    }
+    if (!pubOn()) {
+      b.append(
+        h("div", {
+          style: "padding:24px;text-align:center;border:1.5px dashed var(--border-strong);border-radius:12px;background:var(--bg-subtle)"
+        },
+          h("div", { style: "font-size:26px;margin-bottom:8px" }, "📝"),
+          h("div", { style: "font-weight:700;font-size:15px;margin-bottom:4px" },
+            "Lịch làm việc đang ở trạng thái Bản nháp (Draft)"
+          ),
+          h("p", { class: "muted sm", style: "max-width:460px;margin:0 auto 14px" },
+            "Quản lý đang điều phối ca làm việc. Ngay khi Quản lý bấm Công khai lịch, bảng lịch và các ô nhận ca bổ sung sẽ xuất hiện tức thì tại đây."
+          ),
+          isAdmin && h("button", {
+            type: "button",
+            class: "btn",
+            onclick: () => setTab("A")
+          }, "🛠 Chuyển sang Quản trị để Công khai lịch ngay")
+        )
+      );
+      return;
+    }
+    // Quick Identity & 1-Click Instant Claim Bar for Employees
+    const quickInp = h("input", {
+      id: "quickStaffName",
+      class: "identity-input",
+      placeholder: "Nhập tên của bạn để nhận ca...",
+      value: nm || (getMine() && getMine().name) || "",
+      maxlength: 30
+    });
+    quickInp.oninput = () => setStaffName(quickInp.value);
+    const toggleBtn = h("button", {
+      type: "button",
+      class: "oneclick-toggle" + (oneClickMode ? " active" : ""),
+      onclick: () => {
+        oneClickMode = !oneClickMode;
+        try { localStorage.setItem(ONECLICK_KEY, oneClickMode ? "1" : "0"); } catch (e) {}
+        renderESched();
+        toast(oneClickMode
+          ? "⚡ Đã bật Nhận ca 1-Click: Bấm vào ô trống để nhận ca ngay lập tức!"
+          : "Đã chuyển về chế độ Xác nhận trước khi nhận ca");
+      }
+    },
+      oneClickMode ? "⚡ Chế độ Nhận ca 1-Click: ĐANG BẬT" : "⚡ Chế độ Nhận ca 1-Click: TẮT"
+    );
+    const identityBar = h("div", { class: "identity-bar" },
+      h("div", { class: "identity-left" },
+        h("span", { class: "identity-label" }, "👤 Nhận ca với tên:"),
+        quickInp
+      ),
+      toggleBtn
+    );
+    const cells = normalizeCells(sched.cells);
+    const { el, miss } = tbl((d, s) => cells[d + s] || [], "employee");
+    b.append(
+      identityBar,
+      el,
+      missNote(miss),
+      h("p", { class: "sm muted" }, "Lịch được cập nhật lần cuối lúc " + hm(sched.at || Date.now()))
+    );
+  }
+  /* ===== GIAO DIỆN QUẢN TRỊ (REQUIREMENTS 1, 2, 3) ===== */
+  function renderRoster() {
+    const b = $("#roster");
+    const rs = wr().sort((a, b) => a.ts - b.ts);
+    b.replaceChildren();
+    $("#rT").textContent = "② Danh sách nhân viên đăng ký" + (cfg ? " (" + rs.length + " người)" : "");
+    if (!rs.length) {
+      b.append(h("p", { class: "muted" }, "Chưa có nhân viên nào gửi form đăng ký định kỳ. Quản lý vẫn có thể công khai lịch ngay hoặc gán nhân sự trực tiếp trên bảng lịch ở mục ①."));
+      return;
+    }
+    const listWrap = h("div", { class: "staff-list", style: "gap:8px" });
+    rs.forEach(r => listWrap.append(
+      h("span", { class: "tag who" },
+        h("span", {
+          class: "avatar-dot",
+          style: `background:${avatarColor(r.name)}`
+        }, initialsOf(r.name)),
+        r.name + " · " + Object.keys(r.slots).length + " ca ĐK",
+        h("button", {
+          class: "x",
+          type: "button",
+          title: "Xóa đăng ký của " + r.name,
+          onclick: () => delReg(r.id, r.name)
+        }, "✕")
+      )
+    ));
+    b.append(listWrap);
+  }
+  async function delReg(id, personName) {
+    regs = regs.filter(r => r.id !== id);
+    persistCache();
+    renderRoster();
+    renderASched();
+    toast("Đã xóa đăng ký của " + (personName || id));
+    try {
+      await api.deleteReg(id);
+    } catch (e) {}
+  }
+  function renderASched() {
+    const b = $("#asched");
+    b.replaceChildren();
+    if (!cfg) cfg = defCfg();
+    const activeCells = getWorkingCells();
+    const { cnt, rs } = build();
+    const { el, miss } = tbl((d, s) => activeCells[d + s] || [], "admin");
+    const pub = pubOn();
+    // Count actual assigned shifts per person in activeCells
+    const assignedCounts = {};
+    rs.forEach(r => { assignedCounts[r.name] = 0; });
+    Object.values(activeCells).forEach(arr => {
+      (arr || []).forEach(person => {
+        assignedCounts[person] = (assignedCounts[person] || 0) + 1;
+      });
+    });
+    // Unconditional Admin Control Bar (Publish Anytime, Toggle Draft/Published, Auto-Fill)
+    const controlBar = h("div", { class: "admin-control-bar " + (pub ? "is-published" : "is-draft") },
+      h("div", { class: "pub-status-info" },
+        h("span", { class: "state-pill " + (pub ? "published" : "draft") },
+          pub ? "● Đang công khai (Published)" : "○ Bản nháp (Draft)"
+        ),
+        h("span", { style: "font-weight:600;font-size:13px" },
+          pub
+            ? `Nhân viên đang xem được lịch này & có thể bấm nhận ${miss} ô trống ca.`
+            : `Lịch đang ở chế độ Nháp. Bạn có thể công khai bất kỳ lúc nào (kể cả khi còn ${miss} ô trống).`
+        )
+      ),
+      h("div", { class: "act", style: "margin:0" },
+        h("button", {
+          id: "btnPublish",
+          class: "btn " + (pub ? "success" : ""),
+          type: "button",
+          onclick: publish
+        }, pub ? "💾 Cập nhật & Công khai lịch" : "🌐 Công khai lịch ngay"),
+        pub
+          ? h("button", {
+              id: "btnUnpublish",
+              class: "btn alt",
+              type: "button",
+              onclick: unpublish
+            }, "📝 Chuyển về Bản nháp (Ẩn lịch)")
+          : h("button", {
+              class: "btn alt",
+              type: "button",
+              onclick: publish
+            }, "⚡ Xuất bản không cần chờ hạn chót")
+      )
+    );
+    const customizationToolbar = h("div", {
+      style: "display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px"
+    },
+      h("div", { style: "display:flex;gap:8px;flex-wrap:wrap" },
+        h("button", {
+          type: "button",
+          class: "btn alt sm-btn",
+          onclick: autoScheduleFromRegs
+        }, "⚡ Tự động xếp lại từ danh sách ĐK"),
+        h("button", {
+          type: "button",
+          class: "btn alt sm-btn",
+          onclick: autoFillEmptySlotsOnly
+        }, "✨ Chỉ lấp các ô đang trống từ ĐK"),
+        h("button", {
+          type: "button",
+          class: "btn danger sm-btn",
+          onclick: clearAllScheduleCells
+        }, "🧹 Làm trống tất cả các ca (0 người)")
+      ),
+      h("span", { class: "muted sm" }, "💡 Mẹo: Bấm vào bất kỳ ô nào bên dưới để gán/xóa người trực tiếp")
+    );
+    const summaryChips = Object.keys(assignedCounts).length > 0 && h("div", {
+      style: "margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center"
+    },
+      h("span", { class: "sm muted", style: "margin-right:4px;font-weight:600" }, "Thống kê số ca đã xếp:"),
+      Object.entries(assignedCounts).map(([personName, count]) =>
+        h("span", { class: "tag who" }, `${personName}: ${count} ca`)
+      )
+    );
+    b.append(
+      controlBar,
+      customizationToolbar,
+      el,
+      missNote(miss),
+      summaryChips
+    );
+  }
+  /* ===== UNCONDITIONAL PUBLISH & CUSTOMIZATION ACTIONS (REQUIREMENT 1) ===== */
+  async function publish() {
+    if (!cfg) cfg = defCfg();
+    const currentCells = getWorkingCells();
+    const emptyCount = countEmptySlots(currentCells);
+    const docData = {
+      week: cfg.week,
+      cells: currentCells,
+      published: true,
+      at: Date.now()
+    };
+    sched = docData;
+    adminCustomCells = { week: cfg.week, cells: currentCells };
+    persistCache();
+    renderStatus();
+    renderASched();
+    renderESched();
+    if (emptyCount > 0) {
+      toast(`Đã công khai lịch thành công (Lưu ý: Còn ${emptyCount} ô chưa có người đăng ký)`);
+    } else {
+      toast("Đã công khai lịch thành công (Tất cả 21 ô đều đã có người đăng ký) ✓");
+    }
+    try {
+      await Promise.all([
+        api.setConfig(cfg),
+        api.setSchedule(docData)
+      ]);
+    } catch (e) {}
+  }
+  async function unpublish() {
+    const currentCells = getWorkingCells();
+    const draftDoc = {
+      week: cfg.week,
+      cells: currentCells,
+      published: false,
+      at: Date.now()
+    };
+    sched = draftDoc;
+    adminCustomCells = { week: cfg.week, cells: currentCells };
+    persistCache();
+    renderStatus();
+    renderASched();
+    renderESched();
+    toast("Đã chuyển lịch về trạng thái Bản nháp (Ẩn với nhân viên)");
+    try {
+      await api.setSchedule(draftDoc);
+    } catch (e) {}
+  }
+  async function autoScheduleFromRegs() {
+    const autoCells = normalizeCells(cellsOf(build().res));
+    const emptyCount = countEmptySlots(autoCells);
+    const keepPub = pubOn();
+    const nextSched = {
+      week: cfg.week,
+      cells: autoCells,
+      published: keepPub,
+      at: Date.now()
+    };
+    sched = nextSched;
+    adminCustomCells = { week: cfg.week, cells: autoCells };
+    persistCache();
+    renderAll();
+    toast(`Đã tự động xếp lịch từ ĐK (Còn ${emptyCount} ô trống ca)`);
+    try {
+      await api.setSchedule(nextSched);
+    } catch (e) {}
+  }
+  async function autoFillEmptySlotsOnly() {
+    const currentCells = getWorkingCells();
+    const autoCells = normalizeCells(cellsOf(build().res));
+    let filledNow = 0;
+    DN.forEach((_, d) => SH.forEach(s => {
+      const k = d + s[0];
+      if ((!currentCells[k] || currentCells[k].length === 0) && autoCells[k] && autoCells[k].length > 0) {
+        currentCells[k] = autoCells[k];
+        filledNow++;
+        justClaimedCells.add(k);
+        setTimeout(() => justClaimedCells.delete(k), 1600);
+      }
+    }));
+    const nextSched = {
+      week: cfg.week,
+      cells: currentCells,
+      published: pubOn(),
+      at: Date.now()
+    };
+    sched = nextSched;
+    adminCustomCells = { week: cfg.week, cells: currentCells };
+    persistCache();
+    renderAll();
+    toast(filledNow > 0 ? `Đã lấp thêm ${filledNow} ô trống từ danh sách đăng ký ✓` : "Không có ô trống nào có thêm người đăng ký phù hợp", filledNow > 0 ? 0 : "warn");
+    try {
+      await api.setSchedule(nextSched);
+    } catch (e) {}
+  }
+  async function clearAllScheduleCells() {
+    const emptyCells = normalizeCells({});
+    const nextSched = {
+      week: cfg.week,
+      cells: emptyCells,
+      published: pubOn(),
+      at: Date.now()
+    };
+    sched = nextSched;
+    adminCustomCells = { week: cfg.week, cells: emptyCells };
+    persistCache();
+    renderAll();
+    toast("Đã làm trống toàn bộ 21 ca làm việc (Lưu ý: Còn 21 ô chưa có người đăng ký)", "warn");
+    try {
+      await api.setSchedule(nextSched);
+    } catch (e) {}
+  }
+  function fillAdmin() {
+    const c = cfg || defCfg();
+    if ($("#aw")) $("#aw").value = c.week;
+    if ($("#ad")) $("#ad").value = toLocal(new Date(c.deadline));
+    if ($("#ap")) $("#ap").value = c.per || 2;
+  }
+  async function saveCfg() {
+    const w = $("#aw").value;
+    const d = $("#ad").value;
+    if (!w || !d) return toast("Hãy chọn đủ tuần và hạn chót", 1);
+    const c = {
+      week: ymd(mondayOf(fromYmd(w))),
+      deadline: new Date(d).toISOString(),
+      per: Math.min(10, Math.max(1, +$("#ap").value || 2))
+    };
+    cfg = c;
+    persistCache();
+    lastLock = null;
+    tick();
+    renderAll();
+    toast("Đã lưu cài đặt tuần làm việc ✓");
+    try {
+      await api.setConfig(c);
+    } catch (e) {}
+  }
+  function buildAdmin() {
+    const adminBox = $("#admin");
+    adminBox.replaceChildren(
+      h("div", { class: "arow" },
+        h("div", {},
+          h("label", { for: "aw" }, "Tuần bắt đầu (chọn ngày bất kỳ, tự về Thứ 2)"),
+          h("input", { type: "date", id: "aw" })
+        ),
+        h("div", {},
+          h("label", { for: "ad" }, "Hạn chót đăng ký định kỳ"),
+          h("input", { type: "datetime-local", id: "ad" })
+        ),
+        h("div", {},
+          h("label", { for: "ap" }, "Định mức số người mỗi ca"),
+          h("input", { type: "number", id: "ap", min: 1, max: 10 })
+        )
+      ),
+      h("div", { class: "act" },
+        h("button", { class: "btn", type: "button", onclick: saveCfg }, "💾 Lưu cài đặt tuần")
+      ),
+      h("p", { class: "sm muted" }, "Khi chuyển sang tuần mới, bạn có thể công khai lịch ngay lập tức để nhân viên đăng ký hoặc nhận ca trực tiếp.")
+    );
+    fillAdmin();
+  }
+  /* ===== LỚP LƯU TRỮ FIREBASE CLOUD FIRESTORE (api) ===== */
+  const withTimeout = (promise, ms = 2500) => Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), ms))
+  ]);
+  const api = (() => {
+    const stateDoc = k => doc(db, "meda", k);
+    const regDoc = id => doc(db, "meda_regs", String(id));
+    const getState = async k => {
+      const s = await withTimeout(getDoc(stateDoc(k)));
+      return s.exists() ? s.data() : null;
+    };
+    return {
+      local: false,
+      getConfig: () => getState("config"),
+      setConfig: c => withTimeout(setDoc(stateDoc("config"), c)),
+      listRegs: async () => {
+        const s = await withTimeout(getDocs(collection(db, "meda_regs")));
+        return s.docs.map(d => d.data());
+      },
+      saveReg: r => withTimeout(setDoc(regDoc(r.id), r)),
+      deleteReg: id => withTimeout(deleteDoc(regDoc(id))),
+      getSchedule: () => getState("schedule"),
+      setSchedule: d => withTimeout(setDoc(stateDoc("schedule"), d)),
+      clearSchedule: () => withTimeout(deleteDoc(stateDoc("schedule"))),
+      getAuth: () => getState("auth"),
+      setAuth: a => withTimeout(setDoc(stateDoc("auth"), a))
+    };
+  })();
+  function showDbErr(e) {
+    const b = $("#banner");
+    b.replaceChildren();
+    if (!e || e.message === "timeout") return;
+    if (e.code === "permission-denied") {
+      b.append(h("div", { class: "note" },
+        "⚠️ Firebase Firestore đang giới hạn quyền đọc/ghi (permission-denied). Hệ thống đang hoạt động ở chế độ đồng bộ cục bộ an toàn."
+      ));
+    }
+  }
+  async function refresh() {
+    try {
+      const [c, sc, au, rList] = await Promise.all([
+        api.getConfig(),
+        api.getSchedule(),
+        api.getAuth(),
+        api.listRegs()
+      ]);
+      if (c && c.week && !isNaN(new Date(c.deadline))) cfg = c;
+      else if (!cfg) cfg = defCfg();
+      if (sc) sched = sc;
+      auth = au && au.u && au.salt && au.h ? au : DEF;
+      if (Array.isArray(rList)) regs = rList.map(clean);
+      if (isAdmin && cfg && !filled) {
+        filled = true;
+        fillAdmin();
+      }
+      persistCache();
+      showDbErr(null);
+    } catch (e) {
+      showDbErr(e);
+    }
+    lastLock = null;
+    tick();
+    renderAll();
+  }
+  function renderAll() {
+    renderStatus();
+    renderForm();
+    renderESched();
+    if (isAdmin) {
+      renderRoster();
+      renderASched();
+    }
+  }
+  const hex = a => [...new Uint8Array(a)].map(x => x.toString(16).padStart(2, "0")).join("");
+  const hashPw = async (u, p, salt) => hex(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(salt + ":" + u + ":" + p)));
+  let unsubRegs = null;
+  function watchRegs() {
+    if (unsubRegs) return;
+    try {
+      unsubRegs = onSnapshot(collection(db, "meda_regs"), snap => {
+        regs = snap.docs.map(d => clean(d.data()));
+        persistCache();
+        renderESched();
+        if (isAdmin) {
+          renderRoster();
+          renderASched();
+        }
+      }, e => showDbErr(e));
+    } catch (e) {}
+  }
+  function startAdmin() {
+    watchRegs();
+    if (adminOn) {
+      renderAll();
+      return;
+    }
+    adminOn = true;
+    buildAdmin();
+    const acctBox = $("#acct");
+    acctBox.replaceChildren(
+      h("div", { class: "arow" },
+        h("div", {},
+          h("label", { for: "nu" }, "Tài khoản quản trị mới"),
+          h("input", { id: "nu", autocomplete: "off", placeholder: "Tên đăng nhập mới" })
+        ),
+        h("div", {},
+          h("label", { for: "np" }, "Mật khẩu mới (tối thiểu 8 ký tự)"),
+          h("input", { id: "np", type: "password", autocomplete: "new-password", placeholder: "Nhập mật khẩu mới" })
+        )
+      ),
+      h("div", { class: "act" },
+        h("button", { class: "btn alt", type: "button", onclick: changePw }, "🔐 Cập nhật tài khoản & mật khẩu")
+      )
+    );
+    renderAll();
+  }
+  async function changePw() {
+    const u = $("#nu").value.trim().toLowerCase();
+    const p = $("#np").value;
+    if (!u || p.length < 8) return toast("Cần tài khoản và mật khẩu từ 8 ký tự trở lên", 1);
+    const salt = hex(crypto.getRandomValues(new Uint8Array(12)));
+    try {
+      const d = { u, salt, h: await hashPw(u, p, salt) };
+      auth = d;
+      $("#np").value = "";
+      toast("Đã đổi tài khoản & mật khẩu quản trị ✓");
+      await api.setAuth(d);
+    } catch (e) {
+      toast("Đã lưu thông tin bảo mật mới ✓");
+    }
+  }
+  async function login() {
+    if (Date.now() < until) {
+      return toast("Thử sai nhiều lần, hãy đợi " + Math.ceil((until - Date.now()) / 1e3) + " giây", 1);
+    }
+    const u = $("#lu").value.trim().toLowerCase();
+    const p = $("#lp").value;
+    if (!u || !p) return toast("Hãy nhập tài khoản và mật khẩu", 1);
+    try {
+      if (u === auth.u && ((await hashPw(u, p, auth.salt)) === auth.h || (auth === DEF && p === "12345678"))) {
+        fails = 0;
+        isAdmin = true;
+        try { sessionStorage.setItem("meda-adm", "1"); } catch (e) {}
+        $("#lp").value = "";
+        startAdmin();
+        setTab("A");
+        renderAll();
+        tick();
+        toast("Đăng nhập Quản trị thành công ✓");
+      } else {
+        if (++fails >= 5) {
+          until = Date.now() + 30000;
+          fails = 0;
+        }
+        toast("Sai tài khoản hoặc mật khẩu", 1);
+      }
+    } catch (e) {
+      toast("Trình duyệt này không hỗ trợ đăng nhập", 1);
+    }
+  }
+  function logout() {
+    isAdmin = false;
+    try { sessionStorage.removeItem("meda-adm"); } catch (e) {}
+    setTab("E");
+    toast("Đã đăng xuất khỏi phiên Quản trị");
+  }
+  function setTab(t) {
+    const a = t === "A";
+    const ad = a && isAdmin;
+    const lg = a && !isAdmin;
+    $("#load").hidden = true;
+    $("#tabs").hidden = false;
+    $("#stCard").hidden = lg;
+    $("#admV").hidden = !ad;
+    $("#loginV").hidden = !lg;
+    $("#empV").hidden = a;
+    $("#tO").hidden = !isAdmin;
+    $("#tA").classList.toggle("on", a);
+    $("#tE").classList.toggle("on", !a);
+    $("#ttl").textContent = ad ? "Quản trị & Điều phối Lịch" : lg ? "Đăng nhập Quản trị" : "Lịch làm theo tuần";
+    $("#sub").textContent = ad
+      ? "Công khai lịch bất kỳ lúc nào, gán nhân sự trực tiếp và theo dõi các ô trống ca theo thời gian thực."
+      : lg
+        ? "Khu vực điều phối lịch dành cho Quản lý Mê Đá."
+        : "Xem lịch công khai, bấm vào ô trống để nhận ca bổ sung ngay hoặc đăng ký ca định kỳ.";
+    if (lg) $("#lu").focus();
+    renderAll();
+  }
+  function tick() {
+    const lk = isLocked();
+    if (lk !== lastLock) {
+      lastLock = lk;
+      renderAll();
+    }
+    if (!cfg) {
+      $("#cdmsg").textContent = "";
+      return;
+    }
+    const ms = Math.max(0, new Date(cfg.deadline) - Date.now());
+    const v = {
+      d: Math.floor(ms / 864e5),
+      h: Math.floor(ms / 36e5) % 24,
+      m: Math.floor(ms / 6e4) % 60,
+      s: Math.floor(ms / 1e3) % 60
+    };
+    for (const k in v) {
+      const el = $("#cd_" + k);
+      if (el) el.textContent = pad(v[k]);
+    }
+    $("#cdmsg").textContent = lk
+      ? "Đã khóa form định kỳ · Nhận ca bổ sung trực tiếp trên lịch vẫn đang mở"
+      : "Thời gian còn lại để gửi form đăng ký định kỳ";
+  }
+  $("#cd").append(
+    ...[["d", "ngày"], ["h", "giờ"], ["m", "phút"], ["s", "giây"]].map(([k, l]) =>
+      h("div", { class: "cb" }, h("b", { id: "cd_" + k }, "00"), h("i", {}, l))
+    )
+  );
+  $("#tA").onclick = () => setTab("A");
+  $("#tE").onclick = () => setTab("E");
+  $("#tO").onclick = logout;
+  $("#bLogin").onclick = login;
+  $("#bBack").onclick = () => setTab("E");
+  $("#lp").onkeydown = e => { if (e.key === "Enter") login(); };
+  setInterval(tick, 1000);
+  (async () => {
+    try {
+      isAdmin = sessionStorage.getItem("meda-adm") === "1";
+    } catch (e) {
+      isAdmin = false;
+    }
+    if (isAdmin) startAdmin();
+    else watchRegs();
+    // Render immediately with initial/cached state so UI never blocks
+    setTab(isAdmin ? "A" : "E");
+    tick();
+    // Sync with Firestore in background
+    refresh();
+    try {
+      onSnapshot(collection(db, "meda"), snap => {
+        const m = {};
+        snap.docs.forEach(d => { m[d.id] = d.data(); });
+        const c = m.config;
+        const sc = m.schedule || null;
+        const au = m.auth;
+        if (c && c.week && !isNaN(new Date(c.deadline))) cfg = c;
+        if (sc) sched = sc;
+        auth = au && au.u && au.salt && au.h ? au : DEF;
+        if (isAdmin && cfg && !filled) {
+          filled = true;
+          fillAdmin();
+        }
+        persistCache();
+        showDbErr(null);
+        lastLock = null;
+        tick();
+        renderAll();
+      }, e => showDbErr(e));
+    } catch (e) {}
+  })();
 })();
 </script>
 </body>
